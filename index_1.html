@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HaruVoice · 반응+유입 실측 대시보드 (2026-07)</title>
+<style>
+  :root{
+    color-scheme: light;
+    --plane:#f9f9f7; --surface:#fcfcfb;
+    --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,0.10);
+    --good2:#0ca30c; --down:#d23a3a; --chip:#f0efec;
+    --yt:#e34948; --ig:#e87ba4; --fb:#2a78d6; --tt:#1baf7a; --x:#4a3aa7; --th:#52514e;
+    --ios:#0071e3; --aos:#2e9e5b;
+    --shadow:0 1px 2px rgba(11,11,11,.05),0 6px 24px rgba(11,11,11,.05);
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --plane:#0d0d0d; --surface:#1a1a19;
+    --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
+    --good2:#1bcb1b; --down:#f06a6a; --chip:#26261f;
+    --yt:#e66767; --ig:#d55181; --fb:#3987e5; --tt:#199e70; --x:#9085e9; --th:#a3a299;
+    --ios:#0a84ff; --aos:#3ddc84;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 6px 24px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box} html,body{margin:0;padding:0}
+  body{background:var(--plane); color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.5;}
+  .wrap{max-width:1120px; margin:0 auto; padding:24px 20px 64px}
+  header.top{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  h1{font-size:22px; margin:0 0 4px; letter-spacing:-.01em}
+  .sub{color:var(--ink2); font-size:13.5px; margin:0}
+  .toolbar{display:flex; align-items:center; gap:10px}
+  .updated{font-size:12px; color:var(--muted)}
+  .btn{border:1px solid var(--border); background:var(--surface); color:var(--ink2);
+    border-radius:9px; padding:7px 11px; font-size:12.5px; cursor:pointer; font-family:inherit;}
+  .btn:hover{color:var(--ink)}
+  .banner{margin:16px 0 4px; padding:10px 13px; border:1px dashed var(--axis); border-radius:10px;
+    background:var(--surface); color:var(--ink2); font-size:12.5px; display:flex; gap:8px; align-items:flex-start;}
+  .banner b{color:var(--ink)}
+  .grid-tiles{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:18px 0}
+  .tile{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:15px 16px; box-shadow:var(--shadow)}
+  .tile .k{font-size:12px; color:var(--ink2); margin:0 0 8px; display:flex; align-items:center; gap:6px}
+  .tile .v{font-size:26px; font-weight:700; letter-spacing:-.02em; line-height:1}
+  .tile .d{font-size:12px; color:var(--muted); margin-top:7px}
+  .insight{background:var(--surface); border:1px solid var(--border);
+    border-left:3px solid var(--good2); border-radius:12px; padding:13px 16px; margin:6px 0 20px;
+    font-size:14px; box-shadow:var(--shadow);}
+  .insight b{color:var(--ink)}
+  .cols{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px; box-shadow:var(--shadow); margin-bottom:16px}
+  .card h2{font-size:14.5px; margin:0 0 3px; letter-spacing:-.01em}
+  .card h2 .tag{font-size:11px; font-weight:600; color:#fff; background:var(--fb); padding:2px 7px; border-radius:20px; margin-left:7px; vertical-align:middle}
+  .card h2 .tag.rec{background:var(--muted)}
+  .caveat{background:color-mix(in srgb,#e0a000 14%,transparent); border:1px solid color-mix(in srgb,#e0a000 38%,transparent); color:var(--ink2); font-size:12.5px; line-height:1.55; border-radius:10px; padding:9px 12px; margin:2px 0 14px}
+  .caveat b{color:var(--ink)}
+  .card h2 .tag.real{background:var(--good2)}
+  .legend{display:flex; gap:16px; align-items:center; font-size:12px; color:var(--ink2); margin:0 0 6px}
+  .legend .lg{display:inline-flex; align-items:center; gap:6px}
+  .legend .sw{width:11px; height:11px; border-radius:3px}
+  .appsum{display:flex; flex-wrap:wrap; gap:10px 22px; margin:0 0 14px}
+  .appsum .s{font-size:12.5px; color:var(--ink2)}
+  .appsum .s b{font-size:17px; color:var(--ink); font-weight:700; margin-right:3px}
+  .chart{width:100%; height:auto; display:block; overflow:visible}
+  .chart .gl{stroke:var(--grid); stroke-width:1}
+  .chart .axlab{fill:var(--muted); font-size:9px}
+  .cstack{display:flex; flex-direction:column; gap:11px; margin-top:2px}
+  .cstack .row{display:grid; grid-template-columns:74px 1fr auto; align-items:center; gap:10px}
+  .cstack .lab{font-size:13px; color:var(--ink2)}
+  .cstack .trk{height:16px; background:var(--chip); border-radius:5px; overflow:hidden; display:flex}
+  .cstack .seg{height:100%; transition:width .6s cubic-bezier(.2,.7,.2,1)}
+  .cstack .v{font-size:13px; font-weight:700; font-variant-numeric:tabular-nums; text-align:right; min-width:80px}
+  .cstack .v small{color:var(--muted); font-weight:600; font-size:11px}
+  .genbox{border:1px dashed var(--axis); border-radius:10px; padding:12px 14px; margin-top:8px; background:var(--surface); color:var(--ink2); font-size:12.5px; line-height:1.55}
+  .genbox b{color:var(--ink)}
+  .card .hint{font-size:12px; color:var(--muted); margin:0 0 14px}
+  .bars{display:flex; flex-direction:column; gap:11px}
+  .bar-row{display:grid; grid-template-columns:120px 1fr auto; align-items:center; gap:10px}
+  .bar-lab{display:flex; align-items:center; gap:7px; font-size:13px; color:var(--ink2)}
+  .dot{width:10px; height:10px; border-radius:3px; flex:none}
+  .track{height:16px; background:var(--chip); border-radius:5px; overflow:hidden;}
+  .fill{height:100%; border-radius:5px; min-width:3px; transition:width .6s cubic-bezier(.2,.7,.2,1)}
+  .bar-val{font-size:13px; font-weight:700; font-variant-numeric:tabular-nums; text-align:right; min-width:56px}
+  .bar-val sup{color:var(--muted); font-weight:600}
+  .bar-val .z{color:var(--muted); font-weight:600}
+  table{width:100%; border-collapse:collapse; font-size:12.5px}
+  th,td{text-align:right; padding:9px 8px; border-bottom:1px solid var(--grid); white-space:nowrap}
+  th{color:var(--muted); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:.03em}
+  td:first-child,th:first-child{text-align:center; width:34px; color:var(--muted)}
+  td.l,th.l{text-align:left}
+  th.sep,td.sep{border-left:1px solid var(--grid)}
+  tbody tr:hover{background:var(--chip)}
+  tr.top td{background:color-mix(in srgb,var(--good2) 8%,transparent)}
+  .pf{display:inline-flex; align-items:center; gap:7px}
+  .num{font-variant-numeric:tabular-nums}
+  .prev{color:var(--muted)}
+  .delta{font-variant-numeric:tabular-nums; font-weight:700; font-size:12px}
+  .delta.up{color:var(--good2)} .delta.down{color:var(--down)} .delta.flat{color:var(--muted); font-weight:600}
+  .delta.new{color:var(--fb); font-weight:600}
+  .foot{color:var(--muted); font-size:12px; margin-top:22px; line-height:1.7}
+  .foot code{background:var(--chip); padding:1px 6px; border-radius:5px; font-size:11.5px}
+  @media(max-width:820px){ .grid-tiles{grid-template-columns:repeat(2,1fr)} .cols{grid-template-columns:1fr} .bar-row{grid-template-columns:104px 1fr auto} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>HaruVoice · 반응 + 유입 실측 대시보드 🇯🇵</h1>
+      <p class="sub">일본 여성 타겟 · 6개 채널 실제 데이터 — 어떤 플랫폼·게시물이 <b>도달·반응</b>을 얻고, 실제 <b>앱 유입</b>을 만드나</p>
+    </div>
+    <div class="toolbar">
+      <span class="updated">기준일 2026-07-23 · 어제 대비</span>
+      <button class="btn" id="themeBtn" type="button">🌙 다크</button>
+    </div>
+  </header>
+
+  <div class="banner">📊 <span><b>실제 데이터입니다.</b> 반응(조회·상호작용)은 <b>오늘(7/23) 브라우징 수집</b>(IG·스레드·틱톡·유튜브=Metricool · X=프로필 · FB=Haru Works 대시보드). 게시물 표는 <b>어제(7/22) 값을 지우지 않고</b> 오늘 값·변화(Δ)를 함께 표시해요. GA4 유입은 아직 <b>초기라 기록·참고용</b>이에요(하단 섹션 · (direct)/(none) 제외).</span></div>
+
+  <section class="grid-tiles" id="tiles"></section>
+  <div class="insight" id="insight"></div>
+
+  <div class="cols">
+    <div class="card">
+      <h2>플랫폼별 조회 / 노출</h2>
+      <p class="hint">게시물이 노출·재생된 횟수 · <b>*유튜브 406</b>은 영상 조회라 정의가 달라 직접 비교 X</p>
+      <div class="bars" id="barsViews"></div>
+    </div>
+    <div class="card">
+      <h2>플랫폼별 반응 (상호작용)</h2>
+      <p class="hint">좋아요·댓글·공유 등 합계</p>
+      <div class="bars" id="barsInter"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>플랫폼별 랜딩페이지 유입 <span class="tag rec">GA · 기록용</span></h2>
+    <p class="hint">실제 랜딩페이지(haru_landing) 세션 · UTM으로 잡힌 값 · 최근 28일 · (direct)/(none)·검색·(not set) 제외</p>
+    <div class="caveat">⚠️ <b>참고·기록용 (실질 분석 제외)</b> — UTM을 막 붙인 초기라 본인 세팅·테스트 접속이 섞여 있어요(특히 Facebook 유입은 어제 UTM 등록 중 발생한 것으로 추정). 수치가 더 쌓이기 전까지 <b>플랫폼 우열 판단엔 쓰지 않습니다.</b></div>
+    <div class="bars" id="barsInflow"></div>
+    <p class="hint" style="margin:14px 0 0">※ Facebook·YouTube는 UTM 외 <b>referral 유입</b>도 있어요(FB +8, YT +2). X·틱톡·스레드는 아직 UTM 유입 0 — 조회는 나오는데 링크 클릭→유입이 안 잡히는 중일 수 있어요.</p>
+  </div>
+
+  <div class="card">
+    <h2>게시물 성과 (날짜별 추적)</h2>
+    <p class="hint">오늘(7/23) 조회 기준 정렬 · <b>7/22 → 7/23</b> 변화(Δ) 표시 · 게시물은 utm_content로 표시(같은 콘텐츠는 여러 채널에서 같은 ID, 플랫폼 열로 구분) · '신규'는 오늘 표에 새로 추가된 게시물</p>
+    <div style="overflow-x:auto">
+      <table id="postTable">
+        <thead><tr>
+          <th>#</th><th class="l">플랫폼</th><th class="l">utm_content</th><th>게시물일</th>
+          <th class="sep">조회 7/22</th><th>조회 7/23</th><th>Δ</th>
+          <th class="sep">반응</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>실제 앱 설치 · 다운로드 <span class="tag real">스토어 실측</span></h2>
+    <p class="hint">App Store Connect(iOS) · Google Play Console(Android) 실측 · 최근 약 30일 (iOS 6/22–7/21 · Android 6/25–7/22)</p>
+    <div class="appsum">
+      <span class="s"><b id="apTotal"></b>총 설치</span>
+      <span class="s" style="color:var(--ios)"><b id="apIos"></b>iOS</span>
+      <span class="s" style="color:var(--aos)"><b id="apAos"></b>Android</span>
+      <span class="s"><b id="apKr"></b>한국</span>
+      <span class="s"><b id="apJp"></b>일본</span>
+    </div>
+
+    <p class="hint" style="margin:18px 0 8px; color:var(--ink); font-weight:600; font-size:13px">날짜별 설치 (iOS vs Android)</p>
+    <div class="legend">
+      <span class="lg"><span class="sw" style="background:var(--ios)"></span>iOS</span>
+      <span class="lg"><span class="sw" style="background:var(--aos)"></span>Android</span>
+    </div>
+    <div id="appDaily"></div>
+
+    <p class="hint" style="margin:22px 0 10px; color:var(--ink); font-weight:600; font-size:13px">국가별 설치 <span style="color:var(--muted);font-weight:400">(막대 안 iOS+Android 누적)</span></p>
+    <div class="cstack" id="appCountry"></div>
+  </div>
+
+  <p class="foot" id="foot"></p>
+</div>
+
+<script>
+const TODAY="7/23", YDAY="7/22";
+const D = {
+  platforms:[
+    {key:"instagram",name:"Instagram",views:258,inter:15,posts:4,vnote:""},
+    {key:"tiktok",name:"TikTok",views:235,inter:1,posts:2,vnote:""},
+    {key:"x",name:"X",views:292,inter:13,posts:6,vnote:""},
+    {key:"youtube",name:"YouTube",views:406,inter:0,posts:3,vnote:"*"},
+    {key:"facebook",name:"Facebook",views:192,inter:0,posts:1,vnote:""},
+    {key:"threads",name:"Threads",views:84,inter:5,posts:6,vnote:""},
+  ],
+  inflow:[
+    {key:"facebook",name:"Facebook",sess:17,ref:8},
+    {key:"youtube",name:"YouTube",sess:8,ref:2},
+    {key:"instagram",name:"Instagram",sess:7,ref:0},
+    {key:"x",name:"X",sess:0,ref:0},
+    {key:"tiktok",name:"TikTok",sess:0,ref:0},
+    {key:"threads",name:"Threads",sess:0,ref:0},
+  ],
+  posts:[
+    {key:"instagram",name:"Instagram",c:"healing_1",pd:"7/12",s:{"7/22":{v:128,i:6},"7/23":{v:128,i:6}}},
+    {key:"tiktok",name:"TikTok",c:"profile_1",pd:"7/20",s:{"7/22":{v:118,i:0},"7/23":{v:118,i:0}}},
+    {key:"tiktok",name:"TikTok",c:"healing_1",pd:"7/20",s:{"7/22":{v:117,i:1},"7/23":{v:117,i:1}}},
+    {key:"instagram",name:"Instagram",c:"profile_1",pd:"7/5",s:{"7/22":{v:111,i:3},"7/23":{v:111,i:3}}},
+    {key:"x",name:"X",c:"korea_friend_1",pd:"7/21",s:{"7/22":{v:71,i:0},"7/23":{v:89,i:0}}},
+    {key:"x",name:"X",c:"healing_1",pd:"7/12",s:{"7/22":{v:45,i:3},"7/23":{v:52,i:3}}},
+    {key:"x",name:"X",c:"profile_1",pd:"7/5",s:{"7/22":{v:46,i:3},"7/23":{v:50,i:3}}},
+    {key:"threads",name:"Threads",c:"korea_friend_1",pd:"7/21",s:{"7/22":{v:49,i:0},"7/23":{v:49,i:0}}},
+    {key:"x",name:"X",c:"korea_dating_1",pd:"7/1",s:{"7/23":{v:37,i:3}}},
+    {key:"x",name:"X",c:"promotion_1",pd:"6/29",s:{"7/23":{v:34,i:2}}},
+    {key:"x",name:"X",c:"overview_1",pd:"6/24",s:{"7/22":{v:28,i:2},"7/23":{v:30,i:2}}},
+    {key:"instagram",name:"Instagram",c:"korea_dating_1",pd:"7/1",s:{"7/22":{v:10,i:4},"7/23":{v:10,i:4}}},
+    {key:"instagram",name:"Instagram",c:"korea_friend_1",pd:"7/21",s:{"7/23":{v:9,i:2}}},
+  ]
+};
+const PC = {youtube:'--yt', instagram:'--ig', facebook:'--fb', tiktok:'--tt', x:'--x', threads:'--th'};
+const cvar = k => getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+const nf = n => Math.round(n).toLocaleString('ko-KR');
+
+const totalPosts = D.platforms.reduce((s,p)=>s+p.posts,0);
+const totalViews = D.platforms.reduce((s,p)=>s+p.views,0);
+const totalInter = D.platforms.reduce((s,p)=>s+p.inter,0);
+const bestInter = [...D.platforms].sort((a,b)=>b.inter-a.inter)[0];
+const bestInflow = [...D.inflow].sort((a,b)=>b.sess-a.sess)[0];
+
+const tiles = [
+  {k:'📝 총 게시물', v:nf(totalPosts), d:'6개 채널'},
+  {k:'👁 총 조회', v:nf(totalViews), d:'노출·재생·뷰 합(정의 상이)'},
+  {k:'💬 총 반응', v:nf(totalInter), d:'좋아요·댓글·공유 등'},
+  {k:'🏆 반응 1위', v:bestInter.name, d:'상호작용 '+nf(bestInter.inter), c:PC[bestInter.key]},
+];
+
+document.getElementById('insight').innerHTML =
+  `💡 <b>지금 믿을 신호는 '반응'이에요.</b> 지난 하루 <b>X</b>가 조회가 가장 많이 늘어(<b>+62</b>) 성장 중이고, IG·TikTok은 도달이 가장 큽니다. 반응 자체는 <b>Instagram(15)·X(13)</b>가 앞서요(Facebook은 도달이 99→192로 늘었지만 반응 0). `+
+  `<b>GA 랜딩 유입은 아래에 기록만</b> 해뒀어요 — UTM을 막 붙인 초기라 본인 세팅·테스트 접속이 섞여 있어, 아직 '어느 플랫폼이 유입을 만드나'는 판단하지 않습니다.`;
+
+document.getElementById('foot').innerHTML =
+  '수집: 2026-07-23(반응 오늘 브라우징) · GA 유입: 최근 28일 6/25–7/22 · 이전 기준일 7/22 대비<br>'+
+  '조회 정의(플랫폼별 상이): IG 노출·조회 · TikTok 재생 · X 뷰 · FB 페이지 조회 · <code>*YouTube 영상 조회</code> · Threads 조회<br>'+
+  'GA 유입 = 세션 소스/매체 중 utm_medium=social · (direct)/(none)·google 검색·(not set)·referral 제외 · <b>초기 테스트성 유입 포함으로 기록·참고용(실질 분석 제외)</b>.<br>'+
+  '앱 설치 = App Store Connect 최초 다운로드(iOS) + Play Console 새 사용자(Android) 실측 · 성별은 두 스토어 모두 미제공.';
+
+function drawTiles(){
+  document.getElementById('tiles').innerHTML = tiles.map(t=>
+    `<div class="tile"><p class="k">${t.k}</p><div class="v" ${t.c?`style="color:${cvar(t.c)}"`:''}>${t.v}</div><div class="d">${t.d}</div></div>`).join('');
+}
+function bars(elId, arr, key, unit){
+  const el=document.getElementById(elId);
+  const rows=[...arr].sort((a,b)=>b[key]-a[key]);
+  const max=Math.max(...rows.map(r=>r[key]))||1;
+  el.innerHTML=rows.map(r=>{const c=cvar(PC[r.key]);
+    const sup = key==='views' && r.vnote ? `<sup>${r.vnote}</sup>` : '';
+    const val = r[key]===0 ? `<span class="z">0</span>` : nf(r[key])+(unit||'');
+    return `<div class="bar-row">
+      <span class="bar-lab"><span class="dot" style="background:${c}"></span>${r.name}</span>
+      <div class="track"><div class="fill" style="width:${(r[key]/max*100).toFixed(1)}%;background:${c}"></div></div>
+      <span class="bar-val">${val}${sup}</span></div>`;}).join('');
+}
+function deltaCell(prev,cur){
+  if(!prev) return `<td class="num"><span class="delta new">신규</span></td>`;
+  const d=cur.v-prev.v;
+  if(d>0) return `<td class="num"><span class="delta up">+${d}</span></td>`;
+  if(d<0) return `<td class="num"><span class="delta down">${d}</span></td>`;
+  return `<td class="num"><span class="delta flat">–</span></td>`;
+}
+function drawPosts(){
+  const posts=[...D.posts].sort((a,b)=>b.s[TODAY].v - a.s[TODAY].v);
+  document.querySelector('#postTable tbody').innerHTML = posts.map((p,i)=>{
+    const c=cvar(PC[p.key]);
+    const cur=p.s[TODAY], prev=p.s[YDAY];
+    const prevV = prev ? nf(prev.v) : '<span class="prev">—</span>';
+    return `<tr class="${i===0?'top':''}"><td>${i+1}</td>
+      <td class="l"><span class="pf"><span class="dot" style="background:${c}"></span>${p.name}</span></td>
+      <td class="l">${p.c}</td>
+      <td>${p.pd}</td>
+      <td class="num sep prev">${prevV}</td>
+      <td class="num"><b>${nf(cur.v)}</b></td>
+      ${deltaCell(prev,cur)}
+      <td class="num sep">${nf(cur.i)}</td></tr>`;}).join('');
+}
+const APP = {
+  totals:{ios:50, aos:22},
+  country:[
+    {n:"한국",a:18,i:25},{n:"일본",a:3,i:11},{n:"필리핀",a:0,i:9},{n:"미국",a:0,i:3},{n:"인도",a:0,i:2},{n:"기타",a:1,i:0}
+  ],
+  daily:[
+    {d:"6/22",a:0,i:1},{d:"6/23",a:0,i:0},{d:"6/24",a:0,i:3},{d:"6/25",a:0,i:1},{d:"6/26",a:2,i:1},
+    {d:"6/27",a:2,i:1},{d:"6/28",a:2,i:3},{d:"6/29",a:0,i:3},{d:"6/30",a:2,i:2},{d:"7/1",a:0,i:2},
+    {d:"7/2",a:0,i:1},{d:"7/3",a:0,i:1},{d:"7/4",a:3,i:2},{d:"7/5",a:3,i:1},{d:"7/6",a:1,i:4},
+    {d:"7/7",a:0,i:1},{d:"7/8",a:1,i:1},{d:"7/9",a:1,i:0},{d:"7/10",a:0,i:1},{d:"7/11",a:0,i:4},
+    {d:"7/12",a:0,i:0},{d:"7/13",a:0,i:2},{d:"7/14",a:0,i:1},{d:"7/15",a:0,i:0},{d:"7/16",a:1,i:5},
+    {d:"7/17",a:1,i:2},{d:"7/18",a:1,i:1},{d:"7/19",a:1,i:1},{d:"7/20",a:1,i:3},{d:"7/21",a:0,i:2}
+  ]
+};
+function drawAppSummary(){
+  const t=APP.totals.ios+APP.totals.aos;
+  const kr=APP.country.find(c=>c.n==="한국"), jp=APP.country.find(c=>c.n==="일본");
+  document.getElementById('apTotal').textContent=nf(t);
+  document.getElementById('apIos').textContent=nf(APP.totals.ios);
+  document.getElementById('apAos').textContent=nf(APP.totals.aos);
+  document.getElementById('apKr').textContent=nf(kr.a+kr.i);
+  document.getElementById('apJp').textContent=nf(jp.a+jp.i);
+}
+function drawAppDaily(){
+  const data=APP.daily, W=600,H=180, pl=22,pr=8,pt=10,pb=22;
+  const iw=W-pl-pr, ih=H-pt-pb;
+  const maxV=Math.max(1,...data.map(d=>Math.max(d.a,d.i)));
+  const xx=i=>pl+iw*(i/(data.length-1));
+  const yy=v=>pt+ih*(1-v/maxV);
+  const ios=cvar('--ios'), aos=cvar('--aos');
+  const line=(key,col)=>{
+    const pts=data.map((d,i)=>`${xx(i).toFixed(1)},${yy(d[key]).toFixed(1)}`);
+    const area=`M${pl},${(pt+ih).toFixed(1)} L`+pts.join(' L')+` L${(pl+iw).toFixed(1)},${(pt+ih).toFixed(1)} Z`;
+    return `<path d="${area}" fill="${col}" opacity="0.10"/>`+
+           `<polyline points="${pts.join(' ')}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round"/>`;
+  };
+  let gl='', ax='';
+  for(let v=0; v<=maxV; v++){ const y=yy(v).toFixed(1); gl+=`<line class="gl" x1="${pl}" y1="${y}" x2="${pl+iw}" y2="${y}"/>`; ax+=`<text class="axlab" x="${pl-4}" y="${(+y+3).toFixed(1)}" text-anchor="end">${v}</text>`; }
+  let xl='';
+  data.forEach((d,i)=>{ if(i%5===0||i===data.length-1){ xl+=`<text class="axlab" x="${xx(i).toFixed(1)}" y="${H-6}" text-anchor="middle">${d.d}</text>`; }});
+  document.getElementById('appDaily').innerHTML =
+    `<svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="날짜별 설치">`+
+    gl+line('i',ios)+line('a',aos)+ax+xl+`</svg>`;
+}
+function drawAppCountry(){
+  const rows=[...APP.country].map(c=>({...c,t:c.a+c.i})).sort((x,y)=>y.t-x.t);
+  const max=Math.max(...rows.map(r=>r.t))||1;
+  const ios=cvar('--ios'), aos=cvar('--aos');
+  document.getElementById('appCountry').innerHTML = rows.map(r=>{
+    const wA=(r.a/max*100), wI=(r.i/max*100);
+    const split = (r.a&&r.i)?` <small>(iOS ${r.i}·And ${r.a})</small>`:(r.i?` <small>(iOS)</small>`:` <small>(And)</small>`);
+    return `<div class="row"><span class="lab">${r.n}</span>
+      <div class="trk"><div class="seg" style="width:${wI.toFixed(1)}%;background:${ios}"></div><div class="seg" style="width:${wA.toFixed(1)}%;background:${aos}"></div></div>
+      <span class="v">${nf(r.t)}${split}</span></div>`;}).join('');
+}
+function render(){
+  drawTiles();
+  bars('barsViews', D.platforms, 'views');
+  bars('barsInter', D.platforms, 'inter');
+  bars('barsInflow', D.inflow, 'sess', '');
+  drawPosts();
+  drawAppSummary(); drawAppDaily(); drawAppCountry();
+}
+render();
+document.getElementById('themeBtn').addEventListener('click',()=>{
+  const dark=document.documentElement.getAttribute('data-theme')==='dark';
+  document.documentElement.setAttribute('data-theme',dark?'light':'dark');
+  document.getElementById('themeBtn').textContent=dark?'🌙 다크':'☀️ 라이트';
+  render();
+});
+</script>
+</body>
+</html>
