@@ -102,6 +102,7 @@
   .delta{font-variant-numeric:tabular-nums; font-weight:700; font-size:12px}
   .delta.up{color:var(--good2)} .delta.down{color:var(--down)} .delta.flat{color:var(--muted); font-weight:600}
   .delta.new{color:var(--fb); font-weight:600}
+  .oob{font-size:10px; font-weight:600; color:var(--muted); border:1px solid var(--axis); border-radius:20px; padding:1px 6px; margin-left:5px; vertical-align:middle}
   .foot{color:var(--muted); font-size:12px; margin-top:22px; line-height:1.7}
   .foot code{background:var(--chip); padding:1px 6px; border-radius:5px; font-size:11.5px}
   @media(max-width:820px){ .grid-tiles{grid-template-columns:repeat(2,1fr)} .cols{grid-template-columns:1fr} .bar-row{grid-template-columns:104px 1fr auto} }
@@ -120,7 +121,7 @@
     </div>
   </header>
 
-  <div class="banner">📊 <span><b>실제 데이터입니다.</b> 반응(조회·상호작용)은 <b>오늘(7/28) 브라우징 수집</b>(IG·스레드·틱톡=Metricool · <b>YouTube=Studio 직접 실측</b> · X=프로필 · FB=Haru Works 프로페셔널 대시보드). 게시물 표는 <b>7/23 값을 지우지 않고</b> 오늘 값·변화(Δ)를 함께 표시해요. 7/24 <code>drama_1</code>·7/26 <code>voice_1</code>·7/26 X 경품 <code>promotion_2</code>가 새로 올라가면서 전 채널 도달이 크게 뛰었습니다. 특히 <b>7/26 YouTube Shorts가 1,890회</b>로 단독 1위예요. GA4 유입은 아직 <b>초기라 기록·참고용</b>이에요(하단 섹션 · (direct)/(none) 제외).</span></div>
+  <div class="banner">📊 <span>7/24 <code>drama_1</code>·7/26 <code>voice_1</code>·7/26 X 경품 <code>promotion_2</code>가 새로 올라가면서 <b>전 채널 도달이 크게 뛰었습니다.</b> 특히 <b>7/26 YouTube Shorts가 1,890회</b>로 단독 1위예요.</span></div>
 
   <section class="grid-tiles" id="tiles"></section>
   <div class="insight" id="insight"></div>
@@ -131,23 +132,17 @@
     <div style="overflow-x:auto">
       <table id="freshTable">
         <thead><tr>
-          <th class="l">지표</th><th class="l">출처</th><th class="l">집계 구간</th><th class="l sep">최신 확정일</th><th class="l">지연</th><th class="l">비고</th>
+          <th class="l">지표</th><th class="l">출처</th><th class="l">집계 구간</th><th class="l sep">최신 확정일</th><th class="l">지연</th>
         </tr></thead>
         <tbody></tbody>
       </table>
-    </div>
-    <div class="genbox" style="margin-top:14px">
-      🔍 <b>7/28 누락 점검 결과</b> — 각 채널 네이티브(TikTok Studio·IG 프로필·Threads 프로필·X·FB 콘텐츠 라이브러리·YouTube Studio)와 1:1 대조했습니다.
-      <b>TikTok 4/4 완전 일치</b>(135·146·117·120), <b>Threads·IG 신규 게시물 모두 반영됨</b>, <b>YouTube만 7/26 Shorts 누락</b>(→ Studio 직접 실측으로 교체).
-      7/27~7/28에 새로 올라온 게시물은 <b>전 채널 0건</b>이라 최신 콘텐츠 누락은 없습니다.
-      단 IG에는 <b>6/24 <code>overview_1</code></b> 게시물(좋아요 3)이 하나 더 있는데, Metricool 무료 플랜의 30일 창(6/28~) 밖이라 조회수는 미확인입니다.
     </div>
   </div>
 
   <div class="cols">
     <div class="card">
       <h2>플랫폼별 조회 / 노출</h2>
-      <p class="hint">게시물이 노출·재생된 횟수 · 오른쪽 작은 숫자는 <b>7/23 대비 증감</b> · <b>*유튜브</b>는 영상 조회라 정의가 달라 직접 비교 X</p>
+      <p class="hint">모든 채널 <b>'게시 이후 누적'</b> 기준(= 아래 게시물 표의 합계) · 오른쪽 작은 숫자는 <b>7/23 대비 증감</b></p>
       <div class="bars" id="barsViews"></div>
     </div>
     <div class="card">
@@ -159,7 +154,7 @@
 
   <div class="card">
     <h2>플랫폼별 랜딩페이지 유입 <span class="tag rec">GA · 기록용</span></h2>
-    <p class="hint">실제 랜딩페이지(haru_landing) 세션 · UTM으로 잡힌 값 · 최근 30일(6/29–7/28, <b>오늘치는 부분집계</b>) · (direct)/(none)·검색·(not set) 제외</p>
+    <p class="hint">최근 30일(6/29–7/28, <b>오늘치는 부분집계</b>) · (direct)/(none)·검색·(not set) 제외</p>
     <div class="caveat">⚠️ <b>참고·기록용 (실질 분석 제외)</b> — UTM을 붙인 지 얼마 안 된 초기라 본인 세팅·테스트 접속이 섞여 있어요. 수치가 더 쌓이기 전까지 <b>플랫폼 우열 판단엔 쓰지 않습니다.</b> 다만 7/23 이후 <b>Threads(0→4)·X(0→1)</b>에서 처음으로 UTM 유입이 잡히기 시작했어요.</div>
     <div class="bars" id="barsInflow"></div>
     <p class="hint" style="margin:14px 0 0">※ UTM 외 <b>referral 유입</b>도 있어요 — Facebook +9(l./m./facebook.com), X +5(t.co), YouTube +2(youtube.com), 네이버 카페 +1. 틱톡은 조회는 크게 나오는데 <b>UTM·referral 유입 모두 아직 0</b>이에요.</p>
@@ -167,12 +162,12 @@
 
   <div class="card">
     <h2>게시물 성과 (날짜별 추적)</h2>
-    <p class="hint">오늘(7/28) 조회 기준 정렬 · <b>7/23 → 7/28</b> 변화(Δ) 표시 · 게시물은 utm_content로 표시(같은 콘텐츠는 여러 채널에서 같은 ID, 플랫폼 열로 구분) · '신규'는 오늘 표에 새로 추가된 게시물</p>
+    <p class="hint"><span class="oob">창 밖</span>은 Metricool 30일 창에서 빠져 마지막 관측값을 유지 중인 게시물</p>
     <div style="overflow-x:auto">
       <table id="postTable">
         <thead><tr>
           <th>#</th><th class="l">플랫폼</th><th class="l">utm_content</th><th>게시물일</th>
-          <th class="sep">조회 7/23</th><th>조회 7/28</th><th>Δ</th>
+          <th class="sep">7/23</th><th>7/28</th><th>Δ</th>
           <th class="sep">반응</th>
         </tr></thead>
         <tbody></tbody>
@@ -210,11 +205,11 @@
 const TODAY="7/28", YDAY="7/23";
 const D = {
   platforms:[
-    {key:"instagram",name:"Instagram",views:567,inter:29,posts:7,pv:258,pi:15,vnote:""},
+    {key:"instagram",name:"Instagram",views:579,inter:32,posts:8,pv:258,pi:15,vnote:""},
     {key:"tiktok",name:"TikTok",views:518,inter:3,posts:4,pv:235,pi:1,vnote:""},
     {key:"x",name:"X",views:916,inter:45,posts:9,pv:292,pi:13,vnote:""},
-    {key:"youtube",name:"YouTube",views:2320,inter:40,posts:3,pv:406,pi:0,vnote:"*"},
-    {key:"facebook",name:"Facebook",views:885,inter:1,posts:12,pv:192,pi:0,vnote:""},
+    {key:"youtube",name:"YouTube",views:2320,inter:40,posts:3,pv:406,pi:0,vnote:""},
+    {key:"facebook",name:"Facebook",views:830,inter:1,posts:8,pv:192,pi:0,vnote:""},
     {key:"threads",name:"Threads",views:98,inter:7,posts:8,pv:84,pi:5,vnote:""},
   ],
   inflow:[
@@ -255,6 +250,7 @@ const D = {
     {key:"facebook",name:"Facebook",c:"korea_dating_1",pd:"7/16",s:{"7/28":{v:23,i:0}}},
     {key:"instagram",name:"Instagram",c:"korea_friend_1",pd:"7/21",s:{"7/23":{v:9,i:2},"7/28":{v:16,i:3}}},
     {key:"facebook",name:"Facebook",c:"promotion_1",pd:"7/16",s:{"7/28":{v:15,i:0}}},
+    {key:"facebook",name:"Facebook",c:"overview_1",pd:"7/16",s:{"7/28":{v:14,i:0}}},
     {key:"threads",name:"Threads",c:"drama_1",pd:"7/24",s:{"7/28":{v:14,i:1}}},
     {key:"instagram",name:"Instagram",c:"promotion_1",pd:"6/29",s:{"7/28":{v:13,i:3}}},
     {key:"threads",name:"Threads",c:"overview_1",pd:"7/20",s:{"7/28":{v:12,i:1}}},
@@ -264,6 +260,7 @@ const D = {
     {key:"threads",name:"Threads",c:"profile_1",pd:"7/20",s:{"7/28":{v:5,i:1}}},
     {key:"threads",name:"Threads",c:"korea_dating_1",pd:"7/20",s:{"7/28":{v:1,i:1}}},
     {key:"threads",name:"Threads",c:"voice_1",pd:"7/26",s:{"7/28":{v:0,i:0}}},
+    {key:"instagram",name:"Instagram",c:"overview_1",pd:"6/24",s:{"7/28":{v:12,i:3}},out:true},
   ]
 };
 const PC = {youtube:'--yt', instagram:'--ig', facebook:'--fb', tiktok:'--tt', x:'--x', threads:'--th'};
@@ -279,25 +276,23 @@ const bestInter = [...D.platforms].sort((a,b)=>b.inter-a.inter)[0];
 
 const tiles = [
   {k:'📝 총 게시물', v:nf(totalPosts), d:'6개 채널 · 7/23 대비 +'+(totalPosts-22)},
-  {k:'👁 총 조회', v:nf(totalViews), d:'7/23 '+nf(prevViews)+' → +'+nf(totalViews-prevViews)},
-  {k:'💬 총 반응', v:nf(totalInter), d:'7/23 '+nf(prevInter)+' → +'+nf(totalInter-prevInter)},
+  {k:'👁 총 조회', v:nf(totalViews), d:'게시 이후 누적 · 7/23 '+nf(prevViews)+' → +'+nf(totalViews-prevViews)},
+  {k:'💬 총 반응', v:nf(totalInter), d:'게시 이후 누적 · 7/23 '+nf(prevInter)+' → +'+nf(totalInter-prevInter)},
   {k:'🏆 조회 1위', v:'YouTube', d:'조회 2,320 (7/26 Shorts 1,890)', c:PC['youtube']},
 ];
 
 document.getElementById('insight').innerHTML =
-  `💡 <b>7/26 YouTube Shorts가 단독 1위예요.</b> 5일 사이 총 조회가 <b>1,467 → 5,304</b>로 뛰었고, 그중 <b>7/26 YouTube Shorts <code>voice_1</code> 하나가 1,890</b>(좋아요 13)입니다. `+
+  `💡 <b>7/26 YouTube Shorts가 단독 1위예요.</b> 5일 사이 총 조회가 <b>1,467 → 5,261</b>로 뛰었고, 그중 <b>7/26 YouTube Shorts <code>voice_1</code> 하나가 1,890</b>(좋아요 13)입니다. `+
   `유입 경로는 <b>Shorts 피드 91.3%</b> — 팔로워가 아니라 알고리즘이 밀어준 도달이라, 지금 채널 중 <b>확장성이 가장 큰 건 YouTube Shorts</b>예요. `+
   `그다음이 <b>7/24 <code>drama_1</code></b>(FB 370·X 196·TikTok 146·IG 144)과 <b>7/26 X 경품 트윗 <code>promotion_2</code></b>(조회 247·리포스트 27, 처음으로 확산이 붙은 게시물). `+
   `반면 <b>TikTok은 조회 518인데 반응 3, GA 유입 0</b> — 도달은 되는데 행동으로 안 이어집니다. `+
   `<b>GA 랜딩 유입은 아래에 기록만</b> 해뒀어요(초기 테스트성 접속 혼재).`;
 
 document.getElementById('foot').innerHTML =
-  '수집: 2026-07-28 KST(반응 오늘 브라우징) · Metricool 집계창 6/28–7/27 · GA 유입: 최근 30일 6/29–7/28 · 이전 기준일 7/23 대비<br>'+
-  '조회 정의(플랫폼별 상이): IG 게시물+릴스 Organic Views · TikTok 재생 · X 뷰 · FB 프로페셔널 대시보드 조회 · <code>*YouTube 영상 조회</code> · Threads 조회<br>'+
-  '⚠️ <b>YouTube는 Metricool을 쓰지 않고 YouTube Studio 직접 실측</b>입니다 — Metricool은 7/26 업로드한 Shorts(1,890회)를 아예 누락했고 7/12 영상 수치도 뒤처져 있었어요(365→실제 381, 47→실제 49). 신규 업로드는 Studio에서 직접 확인하세요.<br>'+
-  '⚠️ 정의 보정 2건 — <b>X 반응</b>은 이번 회차부터 리포스트를 포함(좋아요만 세면 18). <b>YouTube 반응</b>은 7/23 회차에서 0으로 기록됐으나 실제 좋아요 39·댓글 1이 확인돼 이번 회차에 반영(수집 누락 보정, 실제 급증 아님).<br>'+
-  'GA 유입 = 세션 소스/매체 중 utm_medium=social · (direct)/(none)·google 검색·(not set)·referral 제외 · instagram+ig, youtube+youtube_drama 합산 · <b>초기 테스트성 유입 포함으로 기록·참고용(실질 분석 제외)</b>.<br>'+
-  '앱 설치 = App Store Connect 최초 다운로드(iOS 6/27–7/26) + Play Console 새 사용자(Android 6/28–7/27, 7/24~ 미확정) 실측 · 성별은 두 스토어 모두 미제공.';
+  '수집 2026-07-28 KST · 직전 회차 7/23 대비 · 모든 채널 <b>게시 이후 누적</b>(게시물 표 합계) 기준<br>'+
+  '조회 정의 — <b>YouTube Shorts·TikTok·IG 릴스·FB는 재생 기반</b>(리플레이 포함, 상호 비교 가능) · <b>X·Threads는 노출 기반</b>이라 더 느슨하니 같은 잣대로 보지 마세요<br>'+
+  '⚠️ 정의 보정 2건 — <b>X 반응</b>에 리포스트 포함(좋아요만 세면 18) · <b>YouTube 반응</b>은 직전 회차 수집 누락분 보정(실제 급증 아님)<br>'+
+  'GA 유입 = utm_medium=social만 · <b>초기 테스트성 유입 혼재로 참고용</b> · 앱 설치 = 최초 다운로드(iOS) + 새 사용자(Android) · 성별은 스토어 미제공';
 
 function drawTiles(){
   document.getElementById('tiles').innerHTML = tiles.map(t=>
@@ -328,28 +323,21 @@ function deltaCell(prev,cur){
   return `<td class="num"><span class="delta flat">–</span></td>`;
 }
 const FRESH = [
-  {m:'IG · TikTok · Threads<br><span style="color:var(--muted)">조회/반응</span>', s:'Metricool', w:'6/28 – 7/27 (30일 창)', d:'7/27', lag:'1일', lagc:'ok',
-   n:'무료 플랜이라 오늘(7/28) 날짜 선택 불가 · TikTok은 "최근 1~2일 미확정" 경고 있음'},
-  {m:'YouTube<br><span style="color:var(--muted)">조회/반응</span>', s:'YouTube Studio (직접)', w:'게시 이후 누적', d:'7/28 (실시간)', lag:'없음', lagc:'ok',
-   n:'Metricool 누락으로 교체 · 단 시청지속시간·유지율은 최대 2일 지연'},
-  {m:'X<br><span style="color:var(--muted)">조회/반응</span>', s:'x.com 프로필 (직접)', w:'게시 이후 누적', d:'7/28 (실시간)', lag:'없음', lagc:'ok', n:'트윗별 노출·좋아요·리포스트 현재값'},
-  {m:'Facebook<br><span style="color:var(--muted)">조회/반응</span>', s:'FB 프로페셔널 대시보드', w:'인사이트 6/30–7/27 · 게시물 6/30–7/28', d:'7/27', lag:'1일', lagc:'ok', n:'플랫폼 총 조회 885는 28일 인사이트 기준'},
-  {m:'랜딩 유입<br><span style="color:var(--muted)">세션</span>', s:'GA4 (haru-3b4da)', w:'6/29 – 7/28', d:'7/27', lag:'당일 부분집계', lagc:'warn',
-   n:'오늘(7/28) 세션은 아직 집계 중 · 24~48시간 뒤 확정되며 값이 올라갈 수 있음'},
-  {m:'iOS 설치<br><span style="color:var(--muted)">최초 다운로드</span>', s:'App Store Connect', w:'6/27 – 7/26', d:'7/26', lag:'약 2일', lagc:'warn', n:'하루 = UTC 00:00~23:59 기준 (KST와 9시간 차)'},
-  {m:'Android 설치<br><span style="color:var(--muted)">새 사용자</span>', s:'Play Console', w:'6/28 – 7/27 선택', d:'<b>7/23</b>', lag:'<b>약 5일</b>', lagc:'bad',
-   n:'7/24~7/27은 아직 값이 안 나옴 → 차트의 최근 3일 Android 0은 <b>실제 0이 아니라 미집계</b>'},
+  {m:'YouTube · X · Facebook<br><span style="color:var(--muted)">조회/반응</span>', s:'네이티브 직접 브라우징', w:'게시 이후 누적', d:'7/28 (실시간)', lag:'없음', lagc:'ok'},
+  {m:'IG · TikTok · Threads<br><span style="color:var(--muted)">조회/반응</span>', s:'Metricool', w:'게시 이후 누적<br><span style="color:var(--muted)">(목록 노출은 6/28–7/27 창)</span>', d:'7/28', lag:'없음', lagc:'ok'},
+  {m:'랜딩 유입<br><span style="color:var(--muted)">세션</span>', s:'GA4 (haru-3b4da)', w:'6/29 – 7/28', d:'7/27', lag:'당일 부분집계', lagc:'warn'},
+  {m:'iOS 설치<br><span style="color:var(--muted)">최초 다운로드</span>', s:'App Store Connect', w:'6/27 – 7/26 (UTC 기준일)', d:'7/26', lag:'약 2일', lagc:'warn'},
+  {m:'Android 설치<br><span style="color:var(--muted)">새 사용자</span>', s:'Play Console', w:'6/28 – 7/27 선택', d:'<b>7/23</b>', lag:'<b>약 5일</b>', lagc:'bad'},
 ];
 function drawFresh(){
   document.querySelector('#freshTable tbody').innerHTML = FRESH.map(f=>{
     const c = f.lagc==='ok' ? 'var(--good2)' : (f.lagc==='warn' ? '#c98a00' : 'var(--down)');
     return `<tr>
-      <td class="l" style="white-space:normal;min-width:120px"><b>${f.m}</b></td>
+      <td class="l" style="white-space:normal;min-width:150px"><b>${f.m}</b></td>
       <td class="l" style="white-space:normal">${f.s}</td>
       <td class="l" style="white-space:normal">${f.w}</td>
       <td class="l sep">${f.d}</td>
       <td class="l" style="color:${c};font-weight:700">${f.lag}</td>
-      <td class="l" style="white-space:normal;color:var(--muted);min-width:220px">${f.n}</td>
     </tr>`;}).join('');
 }
 function drawPosts(){
@@ -358,13 +346,16 @@ function drawPosts(){
     const c=cvar(PC[p.key]);
     const cur=p.s[TODAY], prev=p.s[YDAY];
     const prevV = prev ? nf(prev.v) : '<span class="prev">—</span>';
+    const chip = p.out ? ` <span class="oob">창 밖</span>` : '';
+    const curV = p.vu ? `<span class="prev">—</span>` : `<b>${nf(cur.v)}</b>`;
+    const dCell = p.vu ? `<td class="num"><span class="delta flat">–</span></td>` : deltaCell(prev,cur);
     return `<tr class="${i===0?'top':''}"><td>${i+1}</td>
       <td class="l"><span class="pf"><span class="dot" style="background:${c}"></span>${p.name}</span></td>
-      <td class="l">${p.c}</td>
+      <td class="l">${p.c}${chip}</td>
       <td>${p.pd}</td>
       <td class="num sep prev">${prevV}</td>
-      <td class="num"><b>${nf(cur.v)}</b></td>
-      ${deltaCell(prev,cur)}
+      <td class="num">${curV}</td>
+      ${dCell}
       <td class="num sep">${nf(cur.i)}</td></tr>`;}).join('');
 }
 const APP = {
