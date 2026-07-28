@@ -125,6 +125,25 @@
   <section class="grid-tiles" id="tiles"></section>
   <div class="insight" id="insight"></div>
 
+  <div class="card">
+    <h2>데이터 기준 시점 · 신선도 <span class="tag real">2026-07-28 09:20 KST 수집</span></h2>
+    <p class="hint">지표마다 <b>최신 확정일이 다릅니다.</b> 아래 '최신 확정일'까지가 믿을 수 있는 값이고, 그 이후는 아직 안 잡혔거나 부분집계예요.</p>
+    <div style="overflow-x:auto">
+      <table id="freshTable">
+        <thead><tr>
+          <th class="l">지표</th><th class="l">출처</th><th class="l">집계 구간</th><th class="l sep">최신 확정일</th><th class="l">지연</th><th class="l">비고</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="genbox" style="margin-top:14px">
+      🔍 <b>7/28 누락 점검 결과</b> — 각 채널 네이티브(TikTok Studio·IG 프로필·Threads 프로필·X·FB 콘텐츠 라이브러리·YouTube Studio)와 1:1 대조했습니다.
+      <b>TikTok 4/4 완전 일치</b>(135·146·117·120), <b>Threads·IG 신규 게시물 모두 반영됨</b>, <b>YouTube만 7/26 Shorts 누락</b>(→ Studio 직접 실측으로 교체).
+      7/27~7/28에 새로 올라온 게시물은 <b>전 채널 0건</b>이라 최신 콘텐츠 누락은 없습니다.
+      단 IG에는 <b>6/24 <code>overview_1</code></b> 게시물(좋아요 3)이 하나 더 있는데, Metricool 무료 플랜의 30일 창(6/28~) 밖이라 조회수는 미확인입니다.
+    </div>
+  </div>
+
   <div class="cols">
     <div class="card">
       <h2>플랫폼별 조회 / 노출</h2>
@@ -140,7 +159,7 @@
 
   <div class="card">
     <h2>플랫폼별 랜딩페이지 유입 <span class="tag rec">GA · 기록용</span></h2>
-    <p class="hint">실제 랜딩페이지(haru_landing) 세션 · UTM으로 잡힌 값 · 최근 30일(6/29–7/28) · (direct)/(none)·검색·(not set) 제외</p>
+    <p class="hint">실제 랜딩페이지(haru_landing) 세션 · UTM으로 잡힌 값 · 최근 30일(6/29–7/28, <b>오늘치는 부분집계</b>) · (direct)/(none)·검색·(not set) 제외</p>
     <div class="caveat">⚠️ <b>참고·기록용 (실질 분석 제외)</b> — UTM을 붙인 지 얼마 안 된 초기라 본인 세팅·테스트 접속이 섞여 있어요. 수치가 더 쌓이기 전까지 <b>플랫폼 우열 판단엔 쓰지 않습니다.</b> 다만 7/23 이후 <b>Threads(0→4)·X(0→1)</b>에서 처음으로 UTM 유입이 잡히기 시작했어요.</div>
     <div class="bars" id="barsInflow"></div>
     <p class="hint" style="margin:14px 0 0">※ UTM 외 <b>referral 유입</b>도 있어요 — Facebook +9(l./m./facebook.com), X +5(t.co), YouTube +2(youtube.com), 네이버 카페 +1. 틱톡은 조회는 크게 나오는데 <b>UTM·referral 유입 모두 아직 0</b>이에요.</p>
@@ -163,7 +182,8 @@
 
   <div class="card">
     <h2>실제 앱 설치 · 다운로드 <span class="tag real">스토어 실측</span></h2>
-    <p class="hint">App Store Connect(iOS) · Google Play Console(Android) 실측 · 최근 약 30일 (iOS 6/27–7/26 · Android 6/28–7/27, Play 집계는 7/23까지 확정)</p>
+    <p class="hint">App Store Connect(iOS) · Google Play Console(Android) 실측 · 최근 약 30일 (iOS 6/27–7/26 · Android 6/28–7/27)</p>
+    <div class="caveat">⏱ <b>두 스토어의 최신 확정일이 다릅니다</b> — iOS는 <b>7/26</b>까지, Android는 <b>7/23</b>까지만 값이 나옵니다. 아래 날짜별 차트에서 <b>7/24~7/26 구간의 Android 0은 실제 0이 아니라 미집계</b>예요. Android 21건도 며칠 뒤 소폭 올라갈 수 있습니다.</div>
     <div class="appsum">
       <span class="s"><b id="apTotal"></b>총 설치</span>
       <span class="s" style="color:var(--ios)"><b id="apIos"></b>iOS</span>
@@ -237,7 +257,7 @@ const D = {
     {key:"facebook",name:"Facebook",c:"promotion_1",pd:"7/16",s:{"7/28":{v:15,i:0}}},
     {key:"threads",name:"Threads",c:"drama_1",pd:"7/24",s:{"7/28":{v:14,i:1}}},
     {key:"instagram",name:"Instagram",c:"promotion_1",pd:"6/29",s:{"7/28":{v:13,i:3}}},
-    {key:"threads",name:"Threads",c:"(UTM 미부착)",pd:"7/20",s:{"7/28":{v:12,i:1}}},
+    {key:"threads",name:"Threads",c:"overview_1",pd:"7/20",s:{"7/28":{v:12,i:1}}},
     {key:"instagram",name:"Instagram",c:"korea_dating_1",pd:"7/1",s:{"7/23":{v:10,i:4},"7/28":{v:11,i:5}}},
     {key:"threads",name:"Threads",c:"promotion_1",pd:"7/20",s:{"7/28":{v:9,i:1}}},
     {key:"threads",name:"Threads",c:"healing_1",pd:"7/20",s:{"7/28":{v:8,i:1}}},
@@ -306,6 +326,31 @@ function deltaCell(prev,cur){
   if(d>0) return `<td class="num"><span class="delta up">+${d}</span></td>`;
   if(d<0) return `<td class="num"><span class="delta down">${d}</span></td>`;
   return `<td class="num"><span class="delta flat">–</span></td>`;
+}
+const FRESH = [
+  {m:'IG · TikTok · Threads<br><span style="color:var(--muted)">조회/반응</span>', s:'Metricool', w:'6/28 – 7/27 (30일 창)', d:'7/27', lag:'1일', lagc:'ok',
+   n:'무료 플랜이라 오늘(7/28) 날짜 선택 불가 · TikTok은 "최근 1~2일 미확정" 경고 있음'},
+  {m:'YouTube<br><span style="color:var(--muted)">조회/반응</span>', s:'YouTube Studio (직접)', w:'게시 이후 누적', d:'7/28 (실시간)', lag:'없음', lagc:'ok',
+   n:'Metricool 누락으로 교체 · 단 시청지속시간·유지율은 최대 2일 지연'},
+  {m:'X<br><span style="color:var(--muted)">조회/반응</span>', s:'x.com 프로필 (직접)', w:'게시 이후 누적', d:'7/28 (실시간)', lag:'없음', lagc:'ok', n:'트윗별 노출·좋아요·리포스트 현재값'},
+  {m:'Facebook<br><span style="color:var(--muted)">조회/반응</span>', s:'FB 프로페셔널 대시보드', w:'인사이트 6/30–7/27 · 게시물 6/30–7/28', d:'7/27', lag:'1일', lagc:'ok', n:'플랫폼 총 조회 885는 28일 인사이트 기준'},
+  {m:'랜딩 유입<br><span style="color:var(--muted)">세션</span>', s:'GA4 (haru-3b4da)', w:'6/29 – 7/28', d:'7/27', lag:'당일 부분집계', lagc:'warn',
+   n:'오늘(7/28) 세션은 아직 집계 중 · 24~48시간 뒤 확정되며 값이 올라갈 수 있음'},
+  {m:'iOS 설치<br><span style="color:var(--muted)">최초 다운로드</span>', s:'App Store Connect', w:'6/27 – 7/26', d:'7/26', lag:'약 2일', lagc:'warn', n:'하루 = UTC 00:00~23:59 기준 (KST와 9시간 차)'},
+  {m:'Android 설치<br><span style="color:var(--muted)">새 사용자</span>', s:'Play Console', w:'6/28 – 7/27 선택', d:'<b>7/23</b>', lag:'<b>약 5일</b>', lagc:'bad',
+   n:'7/24~7/27은 아직 값이 안 나옴 → 차트의 최근 3일 Android 0은 <b>실제 0이 아니라 미집계</b>'},
+];
+function drawFresh(){
+  document.querySelector('#freshTable tbody').innerHTML = FRESH.map(f=>{
+    const c = f.lagc==='ok' ? 'var(--good2)' : (f.lagc==='warn' ? '#c98a00' : 'var(--down)');
+    return `<tr>
+      <td class="l" style="white-space:normal;min-width:120px"><b>${f.m}</b></td>
+      <td class="l" style="white-space:normal">${f.s}</td>
+      <td class="l" style="white-space:normal">${f.w}</td>
+      <td class="l sep">${f.d}</td>
+      <td class="l" style="color:${c};font-weight:700">${f.lag}</td>
+      <td class="l" style="white-space:normal;color:var(--muted);min-width:220px">${f.n}</td>
+    </tr>`;}).join('');
 }
 function drawPosts(){
   const posts=[...D.posts].sort((a,b)=>b.s[TODAY].v - a.s[TODAY].v);
@@ -379,6 +424,7 @@ function drawAppCountry(){
 }
 function render(){
   drawTiles();
+  drawFresh();
   bars('barsViews', D.platforms, 'views', 'pv');
   bars('barsInter', D.platforms, 'inter', 'pi');
   bars('barsInflow', D.inflow, 'sess');
