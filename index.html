@@ -103,6 +103,11 @@
   .delta.up{color:var(--good2)} .delta.down{color:var(--down)} .delta.flat{color:var(--muted); font-weight:600}
   .delta.new{color:var(--fb); font-weight:600}
   .oob{font-size:10px; font-weight:600; color:var(--muted); border:1px solid var(--axis); border-radius:20px; padding:1px 6px; margin-left:5px; vertical-align:middle}
+  .mt{font-size:11px; font-weight:600; border-radius:6px; padding:2px 7px; white-space:nowrap; display:inline-block}
+  .mt.s15{background:color-mix(in srgb,var(--good2) 16%,transparent); color:var(--good2)}
+  .mt.s30{background:color-mix(in srgb,var(--tt) 16%,transparent); color:var(--tt)}
+  .mt.poster{background:color-mix(in srgb,var(--x) 14%,transparent); color:var(--x)}
+  .mt.comic{background:color-mix(in srgb,var(--ig) 18%,transparent); color:var(--ig)}
   .foot{color:var(--muted); font-size:12px; margin-top:22px; line-height:1.7}
   .foot code{background:var(--chip); padding:1px 6px; border-radius:5px; font-size:11.5px}
   @media(max-width:820px){ .grid-tiles{grid-template-columns:repeat(2,1fr)} .cols{grid-template-columns:1fr} .bar-row{grid-template-columns:104px 1fr auto} }
@@ -153,6 +158,13 @@
   </div>
 
   <div class="card">
+    <h2>콘텐츠 유형별 성과</h2>
+    <p class="hint">같은 콘텐츠가 여러 채널에 올라간 것도 모두 합산 · 평균 = 총 조회 ÷ 게시물 수</p>
+    <div class="bars" id="barsType"></div>
+    <p class="hint" id="typeNote" style="margin:14px 0 0"></p>
+  </div>
+
+  <div class="card">
     <h2>플랫폼별 랜딩페이지 유입 <span class="tag rec">GA · 기록용</span></h2>
     <p class="hint">최근 30일(6/29–7/28, <b>오늘치는 부분집계</b>) · (direct)/(none)·검색·(not set) 제외</p>
     <div class="caveat">⚠️ <b>참고·기록용 (실질 분석 제외)</b> — UTM을 붙인 지 얼마 안 된 초기라 본인 세팅·테스트 접속이 섞여 있어요. 수치가 더 쌓이기 전까지 <b>플랫폼 우열 판단엔 쓰지 않습니다.</b> 다만 7/23 이후 <b>Threads(0→4)·X(0→1)</b>에서 처음으로 UTM 유입이 잡히기 시작했어요.</div>
@@ -162,11 +174,11 @@
 
   <div class="card">
     <h2>게시물 성과 (날짜별 추적)</h2>
-    <p class="hint"><span class="oob">창 밖</span>은 Metricool 30일 창에서 빠져 마지막 관측값을 유지 중인 게시물</p>
+    <p class="hint">utm_content에 마우스를 올리면 콘텐츠 설명이 보여요 · <span class="oob">창 밖</span>은 Metricool 30일 창에서 빠져 마지막 관측값을 유지 중인 게시물</p>
     <div style="overflow-x:auto">
       <table id="postTable">
         <thead><tr>
-          <th>#</th><th class="l">플랫폼</th><th class="l">utm_content</th><th>게시물일</th>
+          <th>#</th><th class="l">플랫폼</th><th class="l">utm_content</th><th class="l">유형</th><th>게시물일</th>
           <th class="sep">7/23</th><th>7/28</th><th>Δ</th>
           <th class="sep">반응</th>
         </tr></thead>
@@ -340,6 +352,40 @@ function drawFresh(){
       <td class="l" style="color:${c};font-weight:700">${f.lag}</td>
     </tr>`;}).join('');
 }
+const CT = {
+  overview_1:     {t:'포스터',    c:'poster', d:'전체적인 앱 소개'},
+  promotion_1:    {t:'포스터',    c:'poster', d:'출시 기념 모든 기능 무료'},
+  promotion_2:    {t:'포스터',    c:'poster', d:'X 리그램 아마존 상품권 응모'},
+  korea_dating_1: {t:'네컷만화',  c:'comic',  d:'한국 드라마 보고 한국인이랑 소통하고 싶다'},
+  korea_friend_1: {t:'네컷만화',  c:'comic',  d:'한국 친구&여행메이트 사귀자'},
+  profile_1:      {t:'쇼츠(15s)', c:'s15',    d:'프로필 감성 변환'},
+  voice_1:        {t:'쇼츠(15s)', c:'s15',    d:'목소리의 중요성'},
+  healing_1:      {t:'쇼츠(30s)', c:'s30',    d:'퇴근 후 목소리로 힐링'},
+  drama_1:        {t:'쇼츠(30s)', c:'s30',    d:'눈물의 여왕'},
+};
+const TCOL = {s15:'--good2', s30:'--tt', poster:'--x', comic:'--ig'};
+function drawTypes(){
+  const agg={};
+  D.posts.forEach(p=>{
+    const ct=CT[p.c]; if(!ct) return;
+    if(!agg[ct.t]) agg[ct.t]={t:ct.t, cls:ct.c, n:0, v:0, i:0, top:0, topL:''};
+    const cur=p.s[TODAY], a=agg[ct.t];
+    a.n++; a.v+=cur.v; a.i+=cur.i;
+    if(cur.v>a.top){ a.top=cur.v; a.topL=p.name+' <code>'+p.c+'</code>'; }
+  });
+  const rows=Object.values(agg).sort((x,y)=>y.v-x.v);
+  const max=Math.max(...rows.map(r=>r.v))||1;
+  document.getElementById('barsType').innerHTML=rows.map(r=>{
+    const col=cvar(TCOL[r.cls]);
+    return `<div class="bar-row">
+      <span class="bar-lab"><span class="mt ${r.cls}">${r.t}</span></span>
+      <div class="track"><div class="fill" style="width:${(r.v/max*100).toFixed(1)}%;background:${col}"></div></div>
+      <span class="bar-val">${nf(r.v)}<small style="color:var(--muted);font-weight:600;font-size:11px"> · ${r.n}건 · 평균 ${nf(r.v/r.n)}</small></span></div>`;}).join('');
+  const skew=rows.filter(r=>r.top/r.v>=0.4)
+    .map(r=>`<b>${r.t}</b>의 ${Math.round(r.top/r.v*100)}%는 ${r.topL} 1건`);
+  document.getElementById('typeNote').innerHTML = skew.length
+    ? '⚠️ <b>편중 주의</b> — '+skew.join(', ')+'에서 나왔어요. 유형 자체의 힘인지 그 한 건의 힘인지 아직 구분되지 않습니다.' : '';
+}
 function drawPosts(){
   const posts=[...D.posts].sort((a,b)=>b.s[TODAY].v - a.s[TODAY].v);
   document.querySelector('#postTable tbody').innerHTML = posts.map((p,i)=>{
@@ -349,9 +395,13 @@ function drawPosts(){
     const chip = p.out ? ` <span class="oob">창 밖</span>` : '';
     const curV = p.vu ? `<span class="prev">—</span>` : `<b>${nf(cur.v)}</b>`;
     const dCell = p.vu ? `<td class="num"><span class="delta flat">–</span></td>` : deltaCell(prev,cur);
+    const ct = CT[p.c];
+    const typeCell = ct ? `<span class="mt ${ct.c}">${ct.t}</span>` : '<span class="prev">—</span>';
+    const tip = ct ? ` title="${ct.d}"` : '';
     return `<tr class="${i===0?'top':''}"><td>${i+1}</td>
       <td class="l"><span class="pf"><span class="dot" style="background:${c}"></span>${p.name}</span></td>
-      <td class="l">${p.c}${chip}</td>
+      <td class="l"${tip}>${p.c}${chip}</td>
+      <td class="l">${typeCell}</td>
       <td>${p.pd}</td>
       <td class="num sep prev">${prevV}</td>
       <td class="num">${curV}</td>
@@ -419,6 +469,7 @@ function render(){
   bars('barsViews', D.platforms, 'views', 'pv');
   bars('barsInter', D.platforms, 'inter', 'pi');
   bars('barsInflow', D.inflow, 'sess');
+  drawTypes();
   drawPosts();
   drawAppSummary(); drawAppDaily(); drawAppCountry();
 }
