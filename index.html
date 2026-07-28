@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Haruvoice Reaction Dashboard",
+  "schemaVersion": 1,
+  "description": "HaruVoice 반응+팔로워+유입+설치 실측 대시보드 (2026-07-28 기준). 6개 채널 모두 '게시 이후 누적' 단일 기준(게시물 표 합계) — 총 조회 5,261, 총 반응 128, 게시물 40건. 7/28부터 플랫폼별 팔로워·구독자 추적 시작(총 47 · YouTube 16 · X 27 · IG 4 · Threads/TikTok/FB 0), 행=채널 열=수집일 추이 표로 회차마다 열 추가. 7/26 YouTube Shorts voice_1이 1,890회로 단독 1위. GA4 랜딩 유입 59세션(기록·참고용), 앱 설치 73건(iOS 52+Android 21). 지표별 기준 시점·지연 표 포함.",
+  "mcpTools": [],
+  "mcpServerNames": []
+}
+</script>
 <html lang="ko" data-theme="light">
 <head>
 <meta charset="utf-8">
@@ -108,6 +117,9 @@
   .mt.s30{background:color-mix(in srgb,var(--tt) 16%,transparent); color:var(--tt)}
   .mt.poster{background:color-mix(in srgb,var(--x) 14%,transparent); color:var(--x)}
   .mt.comic{background:color-mix(in srgb,var(--ig) 18%,transparent); color:var(--ig)}
+  #folTable td:first-child,#folTable th:first-child{text-align:left; width:auto; color:inherit}
+  #folTable th:first-child{color:var(--muted)}
+  #folTable tfoot td{border-bottom:none; border-top:1px solid var(--axis); font-weight:700}
   .foot{color:var(--muted); font-size:12px; margin-top:22px; line-height:1.7}
   .foot code{background:var(--chip); padding:1px 6px; border-radius:5px; font-size:11.5px}
   @media(max-width:820px){ .grid-tiles{grid-template-columns:repeat(2,1fr)} .cols{grid-template-columns:1fr} .bar-row{grid-template-columns:104px 1fr auto} }
@@ -132,7 +144,7 @@
   <div class="insight" id="insight"></div>
 
   <div class="card">
-    <h2>데이터 기준 시점 · 신선도 <span class="tag real">2026-07-28 09:20 KST 수집</span></h2>
+    <h2>데이터 기준 시점 · 신선도 <span class="tag real">2026-07-28 수집</span></h2>
     <p class="hint">지표마다 <b>최신 확정일이 다릅니다.</b> 아래 '최신 확정일'까지가 믿을 수 있는 값이고, 그 이후는 아직 안 잡혔거나 부분집계예요.</p>
     <div style="overflow-x:auto">
       <table id="freshTable">
@@ -155,6 +167,18 @@
       <p class="hint">좋아요·댓글·공유·리포스트 등 합계 · 오른쪽 작은 숫자는 <b>7/23 대비 증감</b></p>
       <div class="bars" id="barsInter"></div>
     </div>
+  </div>
+
+  <div class="card">
+    <h2>플랫폼별 팔로워 · 구독자 <span class="tag real">7/28 첫 수집</span></h2>
+    <div style="overflow-x:auto; margin-top:12px">
+      <table id="folTable">
+        <thead><tr id="folHead"></tr></thead>
+        <tbody></tbody>
+        <tfoot></tfoot>
+      </table>
+    </div>
+    <p class="hint" id="folNote" style="margin:14px 0 0"></p>
   </div>
 
   <div class="card">
@@ -224,6 +248,19 @@ const D = {
     {key:"facebook",name:"Facebook",views:830,inter:1,posts:8,pv:192,pi:0,vnote:""},
     {key:"threads",name:"Threads",views:98,inter:7,posts:8,pv:84,pi:5,vnote:""},
   ],
+  // 팔로워는 '게시 이후 누적'이 아니라 수집 시점 스냅샷 — 줄어들 수 있고, 줄어도 그대로 기록한다.
+  // 회차마다 dates 배열 끝에 날짜를 추가하고 각 행 v에 값을 넣으면 열이 자동으로 늘어난다.
+  followers:{
+    dates:["7/28"],
+    rows:[
+      {key:"youtube", name:"YouTube",  metric:"구독자", src:"YouTube Studio 대시보드", v:{"7/28":16}},
+      {key:"x",       name:"X",        metric:"팔로워", src:"x.com/haru_voice_app",     v:{"7/28":27}},
+      {key:"instagram",name:"Instagram",metric:"팔로워",src:"instagram.com/haru.official.App", v:{"7/28":4}},
+      {key:"threads", name:"Threads",  metric:"팔로워", src:"threads.com/@haru.official.app",  v:{"7/28":0}},
+      {key:"tiktok",  name:"TikTok",   metric:"팔로워", src:"TikTok Studio",            v:{"7/28":0}},
+      {key:"facebook",name:"Facebook", metric:"팔로워", src:"Facebook 프로필(프로페셔널 모드)", v:{"7/28":0}},
+    ]
+  },
   inflow:[
     {key:"facebook",name:"Facebook",sess:21,ref:9},
     {key:"youtube",name:"YouTube",sess:18,ref:2},
@@ -286,11 +323,14 @@ const prevViews  = D.platforms.reduce((s,p)=>s+p.pv,0);
 const prevInter  = D.platforms.reduce((s,p)=>s+p.pi,0);
 const bestInter = [...D.platforms].sort((a,b)=>b.inter-a.inter)[0];
 
+const FOL_LAST = D.followers.dates[D.followers.dates.length-1];
+const totalFol = D.followers.rows.reduce((s,r)=>s+(r.v[FOL_LAST]||0),0);
+
 const tiles = [
   {k:'📝 총 게시물', v:nf(totalPosts), d:'6개 채널 · 7/23 대비 +'+(totalPosts-22)},
   {k:'👁 총 조회', v:nf(totalViews), d:'게시 이후 누적 · 7/23 '+nf(prevViews)+' → +'+nf(totalViews-prevViews)},
   {k:'💬 총 반응', v:nf(totalInter), d:'게시 이후 누적 · 7/23 '+nf(prevInter)+' → +'+nf(totalInter-prevInter)},
-  {k:'🏆 조회 1위', v:'YouTube', d:'조회 2,320 (7/26 Shorts 1,890)', c:PC['youtube']},
+  {k:'👥 총 팔로워', v:nf(totalFol), d:'6개 채널 합계 · '+FOL_LAST+' 첫 수집(스냅샷)'},
 ];
 
 document.getElementById('insight').innerHTML =
@@ -334,9 +374,54 @@ function deltaCell(prev,cur){
   if(d<0) return `<td class="num"><span class="delta down">${d}</span></td>`;
   return `<td class="num"><span class="delta flat">–</span></td>`;
 }
+function drawFollowers(){
+  const ds=D.followers.dates, last=ds[ds.length-1];
+  const rows=[...D.followers.rows].sort((a,b)=>(b.v[last]??-1)-(a.v[last]??-1));
+  const dcell=(cur,prev,first)=>{
+    const sep=first?' sep':'';
+    if(cur===undefined||cur===null) return `<td class="num${sep}"><span class="prev">미확인</span></td>`;
+    let dl;
+    if(prev===undefined||prev===null){ dl=`<span class="delta flat" style="margin-left:7px">—</span>`; }
+    else { const q=cur-prev;
+      dl = q>0 ? `<span class="delta up" style="margin-left:7px">+${nf(q)}</span>`
+        : q<0 ? `<span class="delta down" style="margin-left:7px">${nf(q)}</span>`
+        : `<span class="delta flat" style="margin-left:7px">–</span>`; }
+    const val = cur===0 ? `<span class="prev">0</span>` : `<b>${nf(cur)}</b>`;
+    return `<td class="num${sep}">${val}${dl}</td>`;
+  };
+  document.getElementById('folHead').innerHTML =
+    `<th class="l">채널</th>`+
+    ds.map((d,i)=>`<th${i===0?' class="sep"':''}>${d}</th>`).join('');
+  document.querySelector('#folTable tbody').innerHTML = rows.map(r=>{
+    const c=cvar(PC[r.key]);
+    return `<tr title="${r.metric} · ${r.src}">
+      <td class="l"><span class="pf"><span class="dot" style="background:${c}"></span>${r.name}</span></td>`+
+      ds.map((d,i)=>dcell(r.v[d], i>0?r.v[ds[i-1]]:undefined, i===0)).join('')+
+    `</tr>`;}).join('');
+  const sumAt = d => rows.reduce((s,r)=>s+(r.v[d]??0),0);
+  document.querySelector('#folTable tfoot').innerHTML =
+    `<tr><td class="l">합계</td>`+
+    ds.map((d,i)=>dcell(sumAt(d), i>0?sumAt(ds[i-1]):undefined, i===0)).join('')+`</tr>`;
+
+  const tot=sumAt(last);
+  const top2=rows.slice(0,2), t2=top2.reduce((s,r)=>s+(r.v[last]??0),0);
+  const zero=rows.filter(r=>(r.v[last]??0)===0).map(r=>r.name);
+  const conv=rows.map(r=>{const p=D.platforms.find(p=>p.key===r.key);
+      return {name:r.name, rate:(p&&p.views)?(r.v[last]??0)/p.views:0};})
+    .sort((a,b)=>b.rate-a.rate)[0];
+  let note = `팔로워는 <b>수집 시점 스냅샷</b>이라 누적이 아니고 줄어들 수도 있어요(줄어도 그대로 기록).`;
+  if(tot>0){
+    note += ` 지금은 <b>${nf(tot)}명 중 ${nf(t2)}명(${Math.round(t2/tot*100)}%)이 ${top2.map(r=>r.name).join('·')}</b>에 몰려 있고, `+
+            `조회 대비 팔로워 전환율은 <b>${conv.name} ${(conv.rate*100).toFixed(1)}%</b>로 가장 높아요.`;
+  }
+  if(zero.length) note += ` <b>${zero.join('·')}</b>는 아직 0 — 조회는 나오는데 계정 팔로우로는 이어지지 않고 있습니다.`;
+  const th=rows.find(r=>r.key==='threads');
+  if(th && (th.v[last]??0)<100) note += ` Threads는 팔로워 100명 미만이라 <b>인사이트가 계속 잠겨 있어요</b>(네이티브 대안 없음).`;
+  document.getElementById('folNote').innerHTML = note;
+}
 const FRESH = [
-  {m:'YouTube · X · Facebook<br><span style="color:var(--muted)">조회/반응</span>', s:'네이티브 직접 브라우징', w:'게시 이후 누적', d:'7/28 (실시간)', lag:'없음', lagc:'ok'},
-  {m:'IG · TikTok · Threads<br><span style="color:var(--muted)">조회/반응</span>', s:'Metricool', w:'게시 이후 누적<br><span style="color:var(--muted)">(목록 노출은 6/28–7/27 창)</span>', d:'7/28', lag:'없음', lagc:'ok'},
+  {m:'YouTube · X · Facebook<br><span style="color:var(--muted)">조회/반응/팔로워수</span>', s:'네이티브 직접 브라우징', w:'조회·반응 게시 이후 누적<br><span style="color:var(--muted)">팔로워는 수집 시점 스냅샷</span>', d:'7/28 (실시간)', lag:'없음', lagc:'ok'},
+  {m:'IG · TikTok · Threads<br><span style="color:var(--muted)">조회/반응/팔로워수</span>', s:'조회·반응 Metricool<br><span style="color:var(--muted)">팔로워는 네이티브 직접</span>', w:'조회·반응 게시 이후 누적<br><span style="color:var(--muted)">(목록 노출은 6/28–7/27 창)</span>', d:'7/28', lag:'없음', lagc:'ok'},
   {m:'랜딩 유입<br><span style="color:var(--muted)">세션</span>', s:'GA4 (haru-3b4da)', w:'6/29 – 7/28', d:'7/27', lag:'당일 부분집계', lagc:'warn'},
   {m:'iOS 설치<br><span style="color:var(--muted)">최초 다운로드</span>', s:'App Store Connect', w:'6/27 – 7/26 (UTC 기준일)', d:'7/26', lag:'약 2일', lagc:'warn'},
   {m:'Android 설치<br><span style="color:var(--muted)">새 사용자</span>', s:'Play Console', w:'6/28 – 7/27 선택', d:'<b>7/23</b>', lag:'<b>약 5일</b>', lagc:'bad'},
@@ -468,6 +553,7 @@ function render(){
   drawFresh();
   bars('barsViews', D.platforms, 'views', 'pv');
   bars('barsInter', D.platforms, 'inter', 'pi');
+  drawFollowers();
   bars('barsInflow', D.inflow, 'sess');
   drawTypes();
   drawPosts();
