@@ -408,17 +408,23 @@ function drawFollowers(){
   };
   document.getElementById('folHead').innerHTML =
     `<th class="l">채널</th>`+
-    ds.map((d,i)=>`<th${i===0?' class="sep"':''}>${d}</th>`).join('');
+    ds.map((d,i)=>`<th${i===0?' class="sep"':''}>${d}</th>`).join('')+
+    `<th class="sep">링크</th>`;
+  const profCell = r => PROF[r.key]
+    ? `<td class="sep" style="text-align:center"><a class="go" href="${PROF[r.key]}" target="_blank" rel="noopener" title="${r.name} 프로필 열기">↗</a></td>`
+    : `<td class="sep" style="text-align:center"><span class="prev">—</span></td>`;
   document.querySelector('#folTable tbody').innerHTML = rows.map(r=>{
     const c=cvar(PC[r.key]);
     return `<tr title="${r.metric} · ${r.src}">
       <td class="l"><span class="pf"><span class="dot" style="background:${c}"></span>${chLink(r.key,r.name)}</span></td>`+
       ds.map((d,i)=>dcell(r.v[d], i>0?r.v[ds[i-1]]:undefined, i===0)).join('')+
+      profCell(r)+
     `</tr>`;}).join('');
   const sumAt = d => rows.reduce((s,r)=>s+(r.v[d]??0),0);
   document.querySelector('#folTable tfoot').innerHTML =
     `<tr><td class="l">합계</td>`+
-    ds.map((d,i)=>dcell(sumAt(d), i>0?sumAt(ds[i-1]):undefined, i===0)).join('')+`</tr>`;
+    ds.map((d,i)=>dcell(sumAt(d), i>0?sumAt(ds[i-1]):undefined, i===0)).join('')+
+    `<td class="sep"></td></tr>`;
 
   const tot=sumAt(last);
   const top2=rows.slice(0,2), t2=top2.reduce((s,r)=>s+(r.v[last]??0),0);
