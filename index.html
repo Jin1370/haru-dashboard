@@ -120,7 +120,7 @@
     </div>
   </header>
 
-  <div class="banner">📊 <span><b>실제 데이터입니다.</b> 반응(조회·상호작용)은 <b>오늘(7/28) 브라우징 수집</b>(IG·스레드·틱톡·유튜브=Metricool · X=프로필 · FB=Haru Works 프로페셔널 대시보드). 게시물 표는 <b>7/23 값을 지우지 않고</b> 오늘 값·변화(Δ)를 함께 표시해요. 7/24 <code>drama_1</code>·7/26 <code>voice_1</code>·7/26 X 경품 <code>promotion_2</code>가 새로 올라가면서 전 채널 도달이 크게 뛰었습니다. GA4 유입은 아직 <b>초기라 기록·참고용</b>이에요(하단 섹션 · (direct)/(none) 제외).</span></div>
+  <div class="banner">📊 <span><b>실제 데이터입니다.</b> 반응(조회·상호작용)은 <b>오늘(7/28) 브라우징 수집</b>(IG·스레드·틱톡=Metricool · <b>YouTube=Studio 직접 실측</b> · X=프로필 · FB=Haru Works 프로페셔널 대시보드). 게시물 표는 <b>7/23 값을 지우지 않고</b> 오늘 값·변화(Δ)를 함께 표시해요. 7/24 <code>drama_1</code>·7/26 <code>voice_1</code>·7/26 X 경품 <code>promotion_2</code>가 새로 올라가면서 전 채널 도달이 크게 뛰었습니다. 특히 <b>7/26 YouTube Shorts가 1,890회</b>로 단독 1위예요. GA4 유입은 아직 <b>초기라 기록·참고용</b>이에요(하단 섹션 · (direct)/(none) 제외).</span></div>
 
   <section class="grid-tiles" id="tiles"></section>
   <div class="insight" id="insight"></div>
@@ -193,7 +193,7 @@ const D = {
     {key:"instagram",name:"Instagram",views:567,inter:29,posts:7,pv:258,pi:15,vnote:""},
     {key:"tiktok",name:"TikTok",views:518,inter:3,posts:4,pv:235,pi:1,vnote:""},
     {key:"x",name:"X",views:916,inter:45,posts:9,pv:292,pi:13,vnote:""},
-    {key:"youtube",name:"YouTube",views:412,inter:26,posts:3,pv:406,pi:0,vnote:"*"},
+    {key:"youtube",name:"YouTube",views:2320,inter:40,posts:3,pv:406,pi:0,vnote:"*"},
     {key:"facebook",name:"Facebook",views:885,inter:1,posts:12,pv:192,pi:0,vnote:""},
     {key:"threads",name:"Threads",views:98,inter:7,posts:8,pv:84,pi:5,vnote:""},
   ],
@@ -210,8 +210,9 @@ const D = {
     {key:"x",name:"X",c:"drama_1",pd:"7/24",s:{"7/28":{v:196,i:3}}},
     {key:"facebook",name:"Facebook",c:"drama_1",pd:"7/24",s:{"7/28":{v:370,i:0}}},
     {key:"facebook",name:"Facebook",c:"voice_1",pd:"7/26",s:{"7/28":{v:307,i:1}}},
-    {key:"youtube",name:"YouTube",c:"profile_1",pd:"7/12",s:{"7/28":{v:365,i:11}}},
-    {key:"youtube",name:"YouTube",c:"healing_1",pd:"7/12",s:{"7/28":{v:47,i:15}}},
+    {key:"youtube",name:"YouTube",c:"voice_1",pd:"7/26",s:{"7/28":{v:1890,i:14}}},
+    {key:"youtube",name:"YouTube",c:"profile_1",pd:"7/12",s:{"7/28":{v:381,i:11}}},
+    {key:"youtube",name:"YouTube",c:"healing_1",pd:"7/12",s:{"7/28":{v:49,i:15}}},
     {key:"tiktok",name:"TikTok",c:"drama_1",pd:"7/24",s:{"7/28":{v:146,i:1}}},
     {key:"instagram",name:"Instagram",c:"drama_1",pd:"7/24",s:{"7/28":{v:144,i:4}}},
     {key:"instagram",name:"Instagram",c:"voice_1",pd:"7/26",s:{"7/28":{v:138,i:3}}},
@@ -260,20 +261,21 @@ const tiles = [
   {k:'📝 총 게시물', v:nf(totalPosts), d:'6개 채널 · 7/23 대비 +'+(totalPosts-22)},
   {k:'👁 총 조회', v:nf(totalViews), d:'7/23 '+nf(prevViews)+' → +'+nf(totalViews-prevViews)},
   {k:'💬 총 반응', v:nf(totalInter), d:'7/23 '+nf(prevInter)+' → +'+nf(totalInter-prevInter)},
-  {k:'🏆 조회 1위', v:'X', d:'조회 916 (경품 트윗 247 포함)', c:PC['x']},
+  {k:'🏆 조회 1위', v:'YouTube', d:'조회 2,320 (7/26 Shorts 1,890)', c:PC['youtube']},
 ];
 
 document.getElementById('insight').innerHTML =
-  `💡 <b>새 크리에이티브 2편 + X 경품이 판을 바꿨어요.</b> 5일 사이 총 조회가 <b>1,467 → 3,396</b>으로 뛰었습니다. `+
-  `견인은 <b>7/24 <code>drama_1</code></b>(X 196·FB 370·TikTok 146·IG 144)과 <b>7/26 <code>voice_1</code></b>(FB 307·TikTok 135·X 120·IG 138), `+
-  `그리고 <b>7/26 X 경품 트윗 <code>promotion_2</code></b>(조회 247·리포스트 27)예요. 리포스트가 처음으로 붙은 게시물이라 <b>X의 확산 채널로서의 가능성</b>이 확인됐습니다. `+
-  `반면 <b>TikTok은 조회 518인데 반응 3, GA 유입 0</b> — 도달은 되는데 행동으로 안 이어지는 채널이에요. `+
+  `💡 <b>7/26 YouTube Shorts가 단독 1위예요.</b> 5일 사이 총 조회가 <b>1,467 → 5,304</b>로 뛰었고, 그중 <b>7/26 YouTube Shorts <code>voice_1</code> 하나가 1,890</b>(좋아요 13)입니다. `+
+  `유입 경로는 <b>Shorts 피드 91.3%</b> — 팔로워가 아니라 알고리즘이 밀어준 도달이라, 지금 채널 중 <b>확장성이 가장 큰 건 YouTube Shorts</b>예요. `+
+  `그다음이 <b>7/24 <code>drama_1</code></b>(FB 370·X 196·TikTok 146·IG 144)과 <b>7/26 X 경품 트윗 <code>promotion_2</code></b>(조회 247·리포스트 27, 처음으로 확산이 붙은 게시물). `+
+  `반면 <b>TikTok은 조회 518인데 반응 3, GA 유입 0</b> — 도달은 되는데 행동으로 안 이어집니다. `+
   `<b>GA 랜딩 유입은 아래에 기록만</b> 해뒀어요(초기 테스트성 접속 혼재).`;
 
 document.getElementById('foot').innerHTML =
   '수집: 2026-07-28 KST(반응 오늘 브라우징) · Metricool 집계창 6/28–7/27 · GA 유입: 최근 30일 6/29–7/28 · 이전 기준일 7/23 대비<br>'+
   '조회 정의(플랫폼별 상이): IG 게시물+릴스 Organic Views · TikTok 재생 · X 뷰 · FB 프로페셔널 대시보드 조회 · <code>*YouTube 영상 조회</code> · Threads 조회<br>'+
-  '⚠️ 정의 보정 2건 — <b>X 반응</b>은 이번 회차부터 리포스트를 포함(좋아요만 세면 18). <b>YouTube 반응</b>은 7/23 회차에서 0으로 기록됐으나 Metricool 실측 좋아요 26이 확인돼 이번 회차에 반영(수집 누락 보정, 실제 급증 아님).<br>'+
+  '⚠️ <b>YouTube는 Metricool을 쓰지 않고 YouTube Studio 직접 실측</b>입니다 — Metricool은 7/26 업로드한 Shorts(1,890회)를 아예 누락했고 7/12 영상 수치도 뒤처져 있었어요(365→실제 381, 47→실제 49). 신규 업로드는 Studio에서 직접 확인하세요.<br>'+
+  '⚠️ 정의 보정 2건 — <b>X 반응</b>은 이번 회차부터 리포스트를 포함(좋아요만 세면 18). <b>YouTube 반응</b>은 7/23 회차에서 0으로 기록됐으나 실제 좋아요 39·댓글 1이 확인돼 이번 회차에 반영(수집 누락 보정, 실제 급증 아님).<br>'+
   'GA 유입 = 세션 소스/매체 중 utm_medium=social · (direct)/(none)·google 검색·(not set)·referral 제외 · instagram+ig, youtube+youtube_drama 합산 · <b>초기 테스트성 유입 포함으로 기록·참고용(실질 분석 제외)</b>.<br>'+
   '앱 설치 = App Store Connect 최초 다운로드(iOS 6/27–7/26) + Play Console 새 사용자(Android 6/28–7/27, 7/24~ 미확정) 실측 · 성별은 두 스토어 모두 미제공.';
 
