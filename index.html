@@ -3,7 +3,7 @@
 {
   "name": "Haruvoice Reaction Dashboard",
   "schemaVersion": 1,
-  "description": "HaruVoice 반응+팔로워+유입+설치 실측 대시보드 (2026-07-28 기준). 6개 채널 모두 '게시 이후 누적' 단일 기준(게시물 표 합계) — 총 조회 5,261, 총 반응 128, 게시물 40건. 7/28부터 플랫폼별 팔로워·구독자 추적 시작(총 47 · YouTube 16 · X 27 · IG 4 · Threads/TikTok/FB 0), 행=채널 열=수집일 추이 표로 회차마다 열 추가. 7/26 YouTube Shorts voice_1이 1,890회로 단독 1위. GA4 랜딩 유입 59세션(기록·참고용), 앱 설치 73건(iOS 52+Android 21). 지표별 기준 시점·지연 표 포함.",
+  "description": "HaruVoice 반응+팔로워+유입+설치 실측 대시보드 (2026-07-30 기준). 6개 채널 모두 '게시 이후 누적' 단일 기준(게시물 표 합계) — 총 조회 5,884, 총 반응 174, 게시물 40건(신규 없음). 이번 회차 증가분은 사실상 X 단독: 7/26 경품 트윗 promotion_2 리포스트 27→73, 조회 247→747로 X 전체 916→1,493. 팔로워 총 81(YouTube 16 · X 27→60 · IG 4→5 · Threads/TikTok/FB 0). GA4 랜딩 유입 65세션(기록·참고용), 앱 설치 75건(iOS 55+Android 20, 30일 창). 지표별 기준 시점·지연 표 포함.",
   "mcpTools": [],
   "mcpServerNames": []
 }
@@ -139,18 +139,18 @@
       <p class="sub">일본 여성 타겟 · 6개 채널 실제 데이터 — 어떤 플랫폼·게시물이 <b>도달·반응</b>을 얻고, 실제 <b>앱 유입</b>을 만드나</p>
     </div>
     <div class="toolbar">
-      <span class="updated">기준일 2026-07-28 · 직전 회차(7/23) 대비</span>
+      <span class="updated">기준일 2026-07-30 · 직전 회차(7/28) 대비</span>
       <button class="btn" id="themeBtn" type="button">🌙 다크</button>
     </div>
   </header>
 
-  <div class="banner">📊 <span>7/24 <code>drama_1</code>·7/26 <code>voice_1</code>·7/26 X 경품 <code>promotion_2</code>가 새로 올라가면서 <b>전 채널 도달이 크게 뛰었습니다.</b> 특히 <b>7/26 YouTube Shorts가 1,890회</b>로 단독 1위예요.</span></div>
+  <div class="banner">📊 <span>새 게시물은 없었는데 <b>7/26 X 경품 트윗 <code>promotion_2</code>가 혼자 확산됐습니다</b> — 리포스트 27→73, 조회 247→747. X 팔로워도 <b>27→60</b>으로 두 배 넘게 늘었어요.</span></div>
 
   <section class="grid-tiles" id="tiles"></section>
   <div class="insight" id="insight"></div>
 
   <div class="card">
-    <h2>데이터 기준 시점 · 신선도 <span class="tag real">2026-07-28 수집</span></h2>
+    <h2>데이터 기준 시점 · 신선도 <span class="tag real">2026-07-30 수집</span></h2>
     <p class="hint">지표마다 <b>최신 확정일이 다릅니다.</b> 아래 '최신 확정일'까지가 믿을 수 있는 값이고, 그 이후는 아직 안 잡혔거나 부분집계예요.</p>
     <div style="overflow-x:auto">
       <table id="freshTable">
@@ -165,18 +165,18 @@
   <div class="cols">
     <div class="card">
       <h2>플랫폼별 조회 / 노출</h2>
-      <p class="hint">모든 채널 <b>'게시 이후 누적'</b> 기준(= 아래 게시물 표의 합계) · 오른쪽 작은 숫자는 <b>7/23 대비 증감</b></p>
+      <p class="hint">모든 채널 <b>'게시 이후 누적'</b> 기준(= 아래 게시물 표의 합계) · 오른쪽 작은 숫자는 <b>7/28 대비 증감</b></p>
       <div class="bars" id="barsViews"></div>
     </div>
     <div class="card">
       <h2>플랫폼별 반응 (상호작용)</h2>
-      <p class="hint">좋아요·댓글·공유·리포스트 등 합계 · 오른쪽 작은 숫자는 <b>7/23 대비 증감</b></p>
+      <p class="hint">좋아요·댓글·공유·리포스트 등 합계 · 오른쪽 작은 숫자는 <b>7/28 대비 증감</b></p>
       <div class="bars" id="barsInter"></div>
     </div>
   </div>
 
   <div class="card">
-    <h2>플랫폼별 팔로워 · 구독자 <span class="tag real">7/28 첫 수집</span></h2>
+    <h2>플랫폼별 팔로워 · 구독자 <span class="tag real">7/30 수집</span></h2>
     <div style="overflow-x:auto; margin-top:12px">
       <table id="folTable">
         <thead><tr id="folHead"></tr></thead>
@@ -196,8 +196,8 @@
 
   <div class="card">
     <h2>플랫폼별 랜딩페이지 유입 <span class="tag rec">GA · 기록용</span></h2>
-    <p class="hint">최근 30일(6/29–7/28, <b>오늘치는 부분집계</b>) · (direct)/(none)·검색·(not set) 제외</p>
-    <div class="caveat">⚠️ <b>참고·기록용 (실질 분석 제외)</b> — UTM을 붙인 지 얼마 안 된 초기라 본인 세팅·테스트 접속이 섞여 있어요. 수치가 더 쌓이기 전까지 <b>플랫폼 우열 판단엔 쓰지 않습니다.</b> 다만 7/23 이후 <b>Threads(0→4)·X(0→1)</b>에서 처음으로 UTM 유입이 잡히기 시작했어요.</div>
+    <p class="hint">최근 30일(6/30–7/29, <b>오늘치는 부분집계</b>) · (direct)/(none)·검색·(not set) 제외</p>
+    <div class="caveat">⚠️ <b>참고·기록용 (실질 분석 제외)</b> — UTM을 붙인 지 얼마 안 된 초기라 본인 세팅·테스트 접속이 섞여 있어요. 수치가 더 쌓이기 전까지 <b>플랫폼 우열 판단엔 쓰지 않습니다.</b> 다만 7/28 이후 <b>X가 1→6</b>으로 늘어, 경품 트윗 확산이 랜딩 유입까지 이어진 흔적은 보입니다.</div>
     <div class="bars" id="barsInflow"></div>
     <p class="hint" style="margin:14px 0 0">※ UTM 외 <b>referral 유입</b>도 있어요 — Facebook +9(l./m./facebook.com), X +5(t.co), YouTube +2(youtube.com), 네이버 카페 +1. 틱톡은 조회는 크게 나오는데 <b>UTM·referral 유입 모두 아직 0</b>이에요.</p>
   </div>
@@ -209,7 +209,7 @@
       <table id="postTable">
         <thead><tr>
           <th>#</th><th class="l">플랫폼</th><th class="l">utm_content</th><th class="l">유형</th><th>게시물일</th>
-          <th class="sep">7/23</th><th>7/28</th><th>Δ</th>
+          <th class="sep">7/28</th><th>7/30</th><th>Δ</th>
           <th class="sep">반응</th><th class="sep">링크</th>
         </tr></thead>
         <tbody></tbody>
@@ -219,8 +219,8 @@
 
   <div class="card">
     <h2>실제 앱 설치 · 다운로드 <span class="tag real">스토어 실측</span></h2>
-    <p class="hint">App Store Connect(iOS) · Google Play Console(Android) 실측 · 최근 약 30일 (iOS 6/27–7/26 · Android 6/28–7/27)</p>
-    <div class="caveat">⏱ <b>두 스토어의 최신 확정일이 다릅니다</b> — iOS는 <b>7/26</b>까지, Android는 <b>7/23</b>까지만 값이 나옵니다. 아래 날짜별 차트에서 <b>7/24~7/26 구간의 Android 0은 실제 0이 아니라 미집계</b>예요. Android 21건도 며칠 뒤 소폭 올라갈 수 있습니다.</div>
+    <p class="hint">App Store Connect(iOS) · Google Play Console(Android) 실측 · 최근 약 30일 (iOS 6/29–7/28 · Android 6/30–7/29)</p>
+    <div class="caveat">⏱ <b>두 스토어의 최신 확정일이 다릅니다</b> — iOS는 <b>7/28</b>까지, Android는 <b>7/26</b>까지만 값이 나옵니다. 아래 날짜별 차트에서 <b>7/27~7/28 구간의 Android 0은 실제 0이 아니라 미집계</b>예요. Android 20건도 며칠 뒤 소폭 올라갈 수 있습니다. 총계는 <b>고정 누적이 아니라 30일 창</b>이라 오래된 날짜가 빠지면 줄어들 수 있어요.</div>
     <div class="appsum">
       <span class="s"><b id="apTotal"></b>총 설치</span>
       <span class="s" style="color:var(--ios)"><b id="apIos"></b>iOS</span>
@@ -244,79 +244,79 @@
 </div>
 
 <script>
-const TODAY="7/28", YDAY="7/23";
+const TODAY="7/30", YDAY="7/28";
 const D = {
   platforms:[
-    {key:"instagram",name:"Instagram",views:579,inter:32,posts:8,pv:258,pi:15,vnote:""},
-    {key:"tiktok",name:"TikTok",views:518,inter:3,posts:4,pv:235,pi:1,vnote:""},
-    {key:"x",name:"X",views:916,inter:45,posts:9,pv:292,pi:13,vnote:""},
-    {key:"youtube",name:"YouTube",views:2320,inter:40,posts:3,pv:406,pi:0,vnote:""},
-    {key:"facebook",name:"Facebook",views:830,inter:1,posts:8,pv:192,pi:0,vnote:""},
-    {key:"threads",name:"Threads",views:98,inter:7,posts:8,pv:84,pi:5,vnote:""},
+    {key:"instagram",name:"Instagram",views:579,inter:32,posts:8,pv:579,pi:32,vnote:""},
+    {key:"tiktok",name:"TikTok",views:518,inter:3,posts:4,pv:518,pi:3,vnote:""},
+    {key:"x",name:"X",views:1493,inter:91,posts:9,pv:916,pi:45,vnote:""},
+    {key:"youtube",name:"YouTube",views:2338,inter:40,posts:3,pv:2320,pi:40,vnote:""},
+    {key:"facebook",name:"Facebook",views:857,inter:1,posts:8,pv:830,pi:1,vnote:""},
+    {key:"threads",name:"Threads",views:99,inter:7,posts:8,pv:98,pi:7,vnote:""},
   ],
   // 팔로워는 '게시 이후 누적'이 아니라 수집 시점 스냅샷 — 줄어들 수 있고, 줄어도 그대로 기록한다.
   // 회차마다 dates 배열 끝에 날짜를 추가하고 각 행 v에 값을 넣으면 열이 자동으로 늘어난다.
   followers:{
-    dates:["7/28"],
+    dates:["7/28","7/30"],
     rows:[
-      {key:"youtube", name:"YouTube",  metric:"구독자", src:"YouTube Studio 대시보드", v:{"7/28":16}},
-      {key:"x",       name:"X",        metric:"팔로워", src:"x.com/haru_voice_app",     v:{"7/28":27}},
-      {key:"instagram",name:"Instagram",metric:"팔로워",src:"instagram.com/haru.official.App", v:{"7/28":4}},
-      {key:"threads", name:"Threads",  metric:"팔로워", src:"threads.com/@haru.official.app",  v:{"7/28":0}},
-      {key:"tiktok",  name:"TikTok",   metric:"팔로워", src:"TikTok Studio",            v:{"7/28":0}},
-      {key:"facebook",name:"Facebook", metric:"팔로워", src:"Facebook 프로필(프로페셔널 모드)", v:{"7/28":0}},
+      {key:"youtube", name:"YouTube",  metric:"구독자", src:"YouTube Studio 대시보드", v:{"7/28":16,"7/30":16}},
+      {key:"x",       name:"X",        metric:"팔로워", src:"x.com/haru_voice_app",     v:{"7/28":27,"7/30":60}},
+      {key:"instagram",name:"Instagram",metric:"팔로워",src:"instagram.com/haru.official.App", v:{"7/28":4,"7/30":5}},
+      {key:"threads", name:"Threads",  metric:"팔로워", src:"threads.com/@haru.official.app",  v:{"7/28":0,"7/30":0}},
+      {key:"tiktok",  name:"TikTok",   metric:"팔로워", src:"TikTok Studio",            v:{"7/28":0,"7/30":0}},
+      {key:"facebook",name:"Facebook", metric:"팔로워", src:"Facebook 프로필(프로페셔널 모드)", v:{"7/28":0,"7/30":0}},
     ]
   },
   inflow:[
     {key:"facebook",name:"Facebook",sess:21,ref:9},
-    {key:"youtube",name:"YouTube",sess:18,ref:2},
-    {key:"instagram",name:"Instagram",sess:15,ref:0},
+    {key:"youtube",name:"YouTube",sess:19,ref:2},
+    {key:"instagram",name:"Instagram",sess:15,ref:1},
     {key:"threads",name:"Threads",sess:4,ref:0},
-    {key:"x",name:"X",sess:1,ref:5},
+    {key:"x",name:"X",sess:6,ref:5},
     {key:"tiktok",name:"TikTok",sess:0,ref:0},
   ],
   // u = 게시물 실제 링크. 값이 없으면 링크 열에 '—'로 표시된다(추측해서 채우지 말 것).
   posts:[
-    {key:"x",name:"X",c:"promotion_2",pd:"7/26",u:"https://x.com/haru_voice_app/status/2081349199657136239",s:{"7/28":{v:247,i:28}}},
-    {key:"x",name:"X",c:"drama_1",pd:"7/24",u:"https://x.com/haru_voice_app/status/2080629188898525536",s:{"7/28":{v:196,i:3}}},
-    {key:"facebook",name:"Facebook",c:"drama_1",pd:"7/24",u:"https://www.facebook.com/share/r/1HghP8dXDA/",s:{"7/28":{v:370,i:0}}},
-    {key:"facebook",name:"Facebook",c:"voice_1",pd:"7/26",u:"https://www.facebook.com/share/r/193HGUz5qg/",s:{"7/28":{v:307,i:1}}},
-    {key:"youtube",name:"YouTube",c:"voice_1",pd:"7/26",u:"https://www.youtube.com/shorts/oDWJ_Kzph-M",s:{"7/28":{v:1890,i:14}}},
-    {key:"youtube",name:"YouTube",c:"profile_1",pd:"7/12",u:"https://www.youtube.com/shorts/NBu9tniPVyA",s:{"7/28":{v:381,i:11}}},
-    {key:"youtube",name:"YouTube",c:"healing_1",pd:"7/12",u:"https://www.youtube.com/watch?v=K4LjmEUF0jY",s:{"7/28":{v:49,i:15}}},
-    {key:"tiktok",name:"TikTok",c:"drama_1",pd:"7/24",u:"https://www.tiktok.com/@haru.works/video/7666108755070979344",s:{"7/28":{v:146,i:1}}},
-    {key:"instagram",name:"Instagram",c:"drama_1",pd:"7/24",u:"https://www.instagram.com/haru.official.app/reel/DbLMzUqs69D/",s:{"7/28":{v:144,i:4}}},
-    {key:"instagram",name:"Instagram",c:"voice_1",pd:"7/26",u:"https://www.instagram.com/haru.official.app/reel/DbQF7_AMMcU/",s:{"7/28":{v:138,i:3}}},
-    {key:"tiktok",name:"TikTok",c:"voice_1",pd:"7/26",u:"https://www.tiktok.com/@haru.works/video/7666775441620864257",s:{"7/28":{v:135,i:1}}},
-    {key:"instagram",name:"Instagram",c:"healing_1",pd:"7/12",u:"https://www.instagram.com/haru.official.app/reel/DarbGUixqiS/",s:{"7/23":{v:128,i:6},"7/28":{v:132,i:7}}},
-    {key:"x",name:"X",c:"korea_friend_1",pd:"7/21",u:"https://x.com/haru_voice_app/status/2079368186609492055",s:{"7/23":{v:89,i:0},"7/28":{v:126,i:1}}},
-    {key:"x",name:"X",c:"voice_1",pd:"7/26",u:"https://x.com/haru_voice_app/status/2081316738009067815",s:{"7/28":{v:120,i:0}}},
-    {key:"tiktok",name:"TikTok",c:"profile_1",pd:"7/20",u:"https://www.tiktok.com/@haru.works/video/7664465650588339463",s:{"7/23":{v:118,i:0},"7/28":{v:120,i:0}}},
-    {key:"tiktok",name:"TikTok",c:"healing_1",pd:"7/20",u:"https://www.tiktok.com/@haru.works/video/7664469322034646279",s:{"7/23":{v:117,i:1},"7/28":{v:117,i:1}}},
-    {key:"instagram",name:"Instagram",c:"profile_1",pd:"7/5",u:"https://www.instagram.com/haru.official.app/reel/DaaEsWcRqBs/",s:{"7/23":{v:111,i:3},"7/28":{v:113,i:4}}},
-    {key:"x",name:"X",c:"healing_1",pd:"7/12",u:"https://x.com/haru_voice_app/status/2076152476567527862",s:{"7/23":{v:52,i:3},"7/28":{v:63,i:3}}},
-    {key:"x",name:"X",c:"profile_1",pd:"7/5",u:"https://x.com/haru_voice_app/status/2073716260635107676",s:{"7/23":{v:50,i:3},"7/28":{v:55,i:3}}},
-    {key:"threads",name:"Threads",c:"korea_friend_1",pd:"7/21",u:"https://www.threads.com/@haru.official.app/post/DbCQrUYEwYz",s:{"7/23":{v:49,i:0},"7/28":{v:49,i:1}}},
-    {key:"facebook",name:"Facebook",c:"healing_1",pd:"7/16",u:"https://www.facebook.com/share/v/1EHRq8E397/",s:{"7/28":{v:47,i:0}}},
-    {key:"x",name:"X",c:"korea_dating_1",pd:"7/1",u:"https://x.com/haru_voice_app/status/2072197396470358308",s:{"7/23":{v:37,i:3},"7/28":{v:41,i:3}}},
-    {key:"x",name:"X",c:"promotion_1",pd:"6/29",u:"https://x.com/haru_voice_app/status/2071257911406514423",s:{"7/23":{v:34,i:2},"7/28":{v:37,i:2}}},
-    {key:"facebook",name:"Facebook",c:"korea_friend_1",pd:"7/21",s:{"7/28":{v:31,i:0}}},
-    {key:"x",name:"X",c:"overview_1",pd:"6/24",u:"https://x.com/haru_voice_app/status/2069605427655127184",s:{"7/23":{v:30,i:2},"7/28":{v:31,i:2}}},
-    {key:"facebook",name:"Facebook",c:"profile_1",pd:"7/16",u:"https://www.facebook.com/share/r/1DfMmKHJ8B/",s:{"7/28":{v:23,i:0}}},
-    {key:"facebook",name:"Facebook",c:"korea_dating_1",pd:"7/16",s:{"7/28":{v:23,i:0}}},
-    {key:"instagram",name:"Instagram",c:"korea_friend_1",pd:"7/21",u:"https://www.instagram.com/haru.official.app/p/DbCQqdaExEE/",s:{"7/23":{v:9,i:2},"7/28":{v:16,i:3}}},
-    {key:"facebook",name:"Facebook",c:"promotion_1",pd:"7/16",s:{"7/28":{v:15,i:0}}},
-    {key:"facebook",name:"Facebook",c:"overview_1",pd:"7/16",s:{"7/28":{v:14,i:0}}},
-    {key:"threads",name:"Threads",c:"drama_1",pd:"7/24",u:"https://www.threads.com/@haru.official.app/post/DbLNcI6ifig",s:{"7/28":{v:14,i:1}}},
-    {key:"instagram",name:"Instagram",c:"promotion_1",pd:"6/29",u:"https://www.instagram.com/haru.official.app/p/DaIpLxGk9D2/",s:{"7/28":{v:13,i:3}}},
-    {key:"threads",name:"Threads",c:"overview_1",pd:"7/20",u:"https://www.threads.com/@haru.official.app/post/Da_umCYEw5-",s:{"7/28":{v:12,i:1}}},
-    {key:"instagram",name:"Instagram",c:"korea_dating_1",pd:"7/1",u:"https://www.instagram.com/haru.official.app/p/DaPko0xRUF0/",s:{"7/23":{v:10,i:4},"7/28":{v:11,i:5}}},
-    {key:"threads",name:"Threads",c:"promotion_1",pd:"7/20",u:"https://www.threads.com/@haru.official.app/post/Da_ziseExc7",s:{"7/28":{v:9,i:1}}},
-    {key:"threads",name:"Threads",c:"healing_1",pd:"7/20",u:"https://www.threads.com/@haru.official.app/post/Da_z7ocCTfZ",s:{"7/28":{v:8,i:1}}},
-    {key:"threads",name:"Threads",c:"profile_1",pd:"7/20",u:"https://www.threads.com/@haru.official.app/post/Da_wxx9CdG8",s:{"7/28":{v:5,i:1}}},
-    {key:"threads",name:"Threads",c:"korea_dating_1",pd:"7/20",u:"https://www.threads.com/@haru.official.app/post/Da_zT_Dk_7A",s:{"7/28":{v:1,i:1}}},
-    {key:"threads",name:"Threads",c:"voice_1",pd:"7/26",u:"https://www.threads.com/@haru.official.app/post/DbQGY3ZiTKH",s:{"7/28":{v:0,i:0}}},
-    {key:"instagram",name:"Instagram",c:"overview_1",pd:"6/24",u:"https://www.instagram.com/haru.official.app/p/DZ9J7MYEV88/",s:{"7/28":{v:12,i:3}},out:true},
+    {key:"x",name:"X",c:"promotion_2",pd:"7/26",u:"https://x.com/haru_voice_app/status/2081349199657136239",s:{"7/28":{v:247,i:28},"7/30":{v:747,i:74}}},
+    {key:"x",name:"X",c:"drama_1",pd:"7/24",u:"https://x.com/haru_voice_app/status/2080629188898525536",s:{"7/28":{v:196,i:3},"7/30":{v:211,i:3}}},
+    {key:"facebook",name:"Facebook",c:"drama_1",pd:"7/24",u:"https://www.facebook.com/share/r/1HghP8dXDA/",s:{"7/28":{v:370,i:0},"7/30":{v:376,i:0}}},
+    {key:"facebook",name:"Facebook",c:"voice_1",pd:"7/26",u:"https://www.facebook.com/share/r/193HGUz5qg/",s:{"7/28":{v:307,i:1},"7/30":{v:310,i:1}}},
+    {key:"youtube",name:"YouTube",c:"voice_1",pd:"7/26",u:"https://www.youtube.com/shorts/oDWJ_Kzph-M",s:{"7/28":{v:1890,i:14},"7/30":{v:1904,i:14}}},
+    {key:"youtube",name:"YouTube",c:"profile_1",pd:"7/12",u:"https://www.youtube.com/shorts/NBu9tniPVyA",s:{"7/28":{v:381,i:11},"7/30":{v:382,i:11}}},
+    {key:"youtube",name:"YouTube",c:"healing_1",pd:"7/12",u:"https://www.youtube.com/watch?v=K4LjmEUF0jY",s:{"7/28":{v:49,i:15},"7/30":{v:52,i:15}}},
+    {key:"tiktok",name:"TikTok",c:"drama_1",pd:"7/24",u:"https://www.tiktok.com/@haru.works/video/7666108755070979344",s:{"7/28":{v:146,i:1},"7/30":{v:146,i:1}}},
+    {key:"instagram",name:"Instagram",c:"drama_1",pd:"7/24",u:"https://www.instagram.com/haru.official.app/reel/DbLMzUqs69D/",s:{"7/28":{v:144,i:4},"7/30":{v:144,i:4}}},
+    {key:"instagram",name:"Instagram",c:"voice_1",pd:"7/26",u:"https://www.instagram.com/haru.official.app/reel/DbQF7_AMMcU/",s:{"7/28":{v:138,i:3},"7/30":{v:138,i:3}}},
+    {key:"tiktok",name:"TikTok",c:"voice_1",pd:"7/26",u:"https://www.tiktok.com/@haru.works/video/7666775441620864257",s:{"7/28":{v:135,i:1},"7/30":{v:135,i:1}}},
+    {key:"instagram",name:"Instagram",c:"healing_1",pd:"7/12",u:"https://www.instagram.com/haru.official.app/reel/DarbGUixqiS/",s:{"7/23":{v:128,i:6},"7/28":{v:132,i:7},"7/30":{v:132,i:7}}},
+    {key:"x",name:"X",c:"korea_friend_1",pd:"7/21",u:"https://x.com/haru_voice_app/status/2079368186609492055",s:{"7/23":{v:89,i:0},"7/28":{v:126,i:1},"7/30":{v:134,i:1}}},
+    {key:"x",name:"X",c:"voice_1",pd:"7/26",u:"https://x.com/haru_voice_app/status/2081316738009067815",s:{"7/28":{v:120,i:0},"7/30":{v:161,i:0}}},
+    {key:"tiktok",name:"TikTok",c:"profile_1",pd:"7/20",u:"https://www.tiktok.com/@haru.works/video/7664465650588339463",s:{"7/23":{v:118,i:0},"7/28":{v:120,i:0},"7/30":{v:120,i:0}}},
+    {key:"tiktok",name:"TikTok",c:"healing_1",pd:"7/20",u:"https://www.tiktok.com/@haru.works/video/7664469322034646279",s:{"7/23":{v:117,i:1},"7/28":{v:117,i:1},"7/30":{v:117,i:1}}},
+    {key:"instagram",name:"Instagram",c:"profile_1",pd:"7/5",u:"https://www.instagram.com/haru.official.app/reel/DaaEsWcRqBs/",s:{"7/23":{v:111,i:3},"7/28":{v:113,i:4},"7/30":{v:113,i:4}}},
+    {key:"x",name:"X",c:"healing_1",pd:"7/12",u:"https://x.com/haru_voice_app/status/2076152476567527862",s:{"7/23":{v:52,i:3},"7/28":{v:63,i:3},"7/30":{v:67,i:3}}},
+    {key:"x",name:"X",c:"profile_1",pd:"7/5",u:"https://x.com/haru_voice_app/status/2073716260635107676",s:{"7/23":{v:50,i:3},"7/28":{v:55,i:3},"7/30":{v:57,i:3}}},
+    {key:"threads",name:"Threads",c:"korea_friend_1",pd:"7/21",u:"https://www.threads.com/@haru.official.app/post/DbCQrUYEwYz",s:{"7/23":{v:49,i:0},"7/28":{v:49,i:1},"7/30":{v:49,i:1}}},
+    {key:"facebook",name:"Facebook",c:"healing_1",pd:"7/16",u:"https://www.facebook.com/share/v/1EHRq8E397/",s:{"7/28":{v:47,i:0},"7/30":{v:52,i:0}}},
+    {key:"x",name:"X",c:"korea_dating_1",pd:"7/1",u:"https://x.com/haru_voice_app/status/2072197396470358308",s:{"7/23":{v:37,i:3},"7/28":{v:41,i:3},"7/30":{v:44,i:3}}},
+    {key:"x",name:"X",c:"promotion_1",pd:"6/29",u:"https://x.com/haru_voice_app/status/2071257911406514423",s:{"7/23":{v:34,i:2},"7/28":{v:37,i:2},"7/30":{v:39,i:2}}},
+    {key:"facebook",name:"Facebook",c:"korea_friend_1",pd:"7/21",s:{"7/28":{v:31,i:0},"7/30":{v:33,i:0}}},
+    {key:"x",name:"X",c:"overview_1",pd:"6/24",u:"https://x.com/haru_voice_app/status/2069605427655127184",s:{"7/23":{v:30,i:2},"7/28":{v:31,i:2},"7/30":{v:33,i:2}}},
+    {key:"facebook",name:"Facebook",c:"profile_1",pd:"7/16",u:"https://www.facebook.com/share/r/1DfMmKHJ8B/",s:{"7/28":{v:23,i:0},"7/30":{v:28,i:0}}},
+    {key:"facebook",name:"Facebook",c:"korea_dating_1",pd:"7/16",s:{"7/28":{v:23,i:0},"7/30":{v:25,i:0}}},
+    {key:"instagram",name:"Instagram",c:"korea_friend_1",pd:"7/21",u:"https://www.instagram.com/haru.official.app/p/DbCQqdaExEE/",s:{"7/23":{v:9,i:2},"7/28":{v:16,i:3},"7/30":{v:16,i:3}}},
+    {key:"facebook",name:"Facebook",c:"promotion_1",pd:"7/16",s:{"7/28":{v:15,i:0},"7/30":{v:17,i:0}}},
+    {key:"facebook",name:"Facebook",c:"overview_1",pd:"7/16",s:{"7/28":{v:14,i:0},"7/30":{v:16,i:0}}},
+    {key:"threads",name:"Threads",c:"drama_1",pd:"7/24",u:"https://www.threads.com/@haru.official.app/post/DbLNcI6ifig",s:{"7/28":{v:14,i:1},"7/30":{v:14,i:1}}},
+    {key:"instagram",name:"Instagram",c:"promotion_1",pd:"6/29",u:"https://www.instagram.com/haru.official.app/p/DaIpLxGk9D2/",s:{"7/28":{v:13,i:3},"7/30":{v:13,i:3}},out:true},
+    {key:"threads",name:"Threads",c:"overview_1",pd:"7/20",u:"https://www.threads.com/@haru.official.app/post/Da_umCYEw5-",s:{"7/28":{v:12,i:1},"7/30":{v:12,i:1}}},
+    {key:"instagram",name:"Instagram",c:"korea_dating_1",pd:"7/1",u:"https://www.instagram.com/haru.official.app/p/DaPko0xRUF0/",s:{"7/23":{v:10,i:4},"7/28":{v:11,i:5},"7/30":{v:11,i:5}}},
+    {key:"threads",name:"Threads",c:"promotion_1",pd:"7/20",u:"https://www.threads.com/@haru.official.app/post/Da_ziseExc7",s:{"7/28":{v:9,i:1},"7/30":{v:9,i:1}}},
+    {key:"threads",name:"Threads",c:"healing_1",pd:"7/20",u:"https://www.threads.com/@haru.official.app/post/Da_z7ocCTfZ",s:{"7/28":{v:8,i:1},"7/30":{v:8,i:1}}},
+    {key:"threads",name:"Threads",c:"profile_1",pd:"7/20",u:"https://www.threads.com/@haru.official.app/post/Da_wxx9CdG8",s:{"7/28":{v:5,i:1},"7/30":{v:5,i:1}}},
+    {key:"threads",name:"Threads",c:"korea_dating_1",pd:"7/20",u:"https://www.threads.com/@haru.official.app/post/Da_zT_Dk_7A",s:{"7/28":{v:1,i:1},"7/30":{v:1,i:1}}},
+    {key:"threads",name:"Threads",c:"voice_1",pd:"7/26",u:"https://www.threads.com/@haru.official.app/post/DbQGY3ZiTKH",s:{"7/28":{v:0,i:0},"7/30":{v:1,i:0}}},
+    {key:"instagram",name:"Instagram",c:"overview_1",pd:"6/24",u:"https://www.instagram.com/haru.official.app/p/DZ9J7MYEV88/",s:{"7/28":{v:12,i:3},"7/30":{v:12,i:3}},out:true},
   ]
 };
 // 채널 프로필 링크 — 채널명 클릭 시 이동
@@ -344,24 +344,24 @@ const FOL_LAST = D.followers.dates[D.followers.dates.length-1];
 const totalFol = D.followers.rows.reduce((s,r)=>s+(r.v[FOL_LAST]||0),0);
 
 const tiles = [
-  {k:'📝 총 게시물', v:nf(totalPosts), d:'6개 채널 · 7/23 대비 +'+(totalPosts-22)},
-  {k:'👁 총 조회', v:nf(totalViews), d:'게시 이후 누적 · 7/23 '+nf(prevViews)+' → +'+nf(totalViews-prevViews)},
-  {k:'💬 총 반응', v:nf(totalInter), d:'게시 이후 누적 · 7/23 '+nf(prevInter)+' → +'+nf(totalInter-prevInter)},
-  {k:'👥 총 팔로워', v:nf(totalFol), d:'6개 채널 합계 · '+FOL_LAST+' 첫 수집(스냅샷)'},
+  {k:'📝 총 게시물', v:nf(totalPosts), d:'6개 채널 · 7/28 대비 '+((totalPosts-40)>0?'+'+nf(totalPosts-40):'변화 없음')},
+  {k:'👁 총 조회', v:nf(totalViews), d:'게시 이후 누적 · 7/28 '+nf(prevViews)+' → +'+nf(totalViews-prevViews)},
+  {k:'💬 총 반응', v:nf(totalInter), d:'게시 이후 누적 · 7/28 '+nf(prevInter)+' → +'+nf(totalInter-prevInter)},
+  {k:'👥 총 팔로워', v:nf(totalFol), d:'6개 채널 합계 · '+FOL_LAST+' 스냅샷 · 7/28 대비 +'+nf(totalFol-47)},
 ];
 
 document.getElementById('insight').innerHTML =
-  `💡 <b>7/26 YouTube Shorts가 단독 1위예요.</b> 5일 사이 총 조회가 <b>1,467 → 5,261</b>로 뛰었고, 그중 <b>7/26 YouTube Shorts <code>voice_1</code> 하나가 1,890</b>(좋아요 13)입니다. `+
-  `유입 경로는 <b>Shorts 피드 91.3%</b> — 팔로워가 아니라 알고리즘이 밀어준 도달이라, 지금 채널 중 <b>확장성이 가장 큰 건 YouTube Shorts</b>예요. `+
-  `그다음이 <b>7/24 <code>drama_1</code></b>(FB 370·X 196·TikTok 146·IG 144)과 <b>7/26 X 경품 트윗 <code>promotion_2</code></b>(조회 247·리포스트 27, 처음으로 확산이 붙은 게시물). `+
-  `반면 <b>TikTok은 조회 518인데 반응 3, GA 유입 0</b> — 도달은 되는데 행동으로 안 이어집니다. `+
-  `<b>GA 랜딩 유입은 아래에 기록만</b> 해뒀어요(초기 테스트성 접속 혼재).`;
+  `💡 <b>이번 이틀의 변화는 사실상 X 한 채널입니다.</b> 총 조회가 <b>5,261 → 5,884</b>(+623)인데 그중 <b>X가 +577</b>, 나머지 5채널 합계는 +46뿐이에요. `+
+  `진원지는 <b>7/26 경품 트윗 <code>promotion_2</code></b> — 리포스트 <b>27 → 73</b>, 조회 <b>247 → 747</b>로 지금 유일하게 자력 확산 중인 게시물이고, <b>X 팔로워 27 → 60</b>(+33)도 여기서 나왔습니다. `+
+  `직전 1위였던 <b>YouTube Shorts <code>voice_1</code>은 1,890 → 1,904</b>(+14)로 도달이 식었어요 — 알고리즘 밀어주기는 짧게 끝난다는 신호입니다. `+
+  `반면 <b>Instagram·TikTok은 조회·반응이 소수점까지 동일</b>(579/32, 518/3) — 새 게시물이 없으면 완전히 멈춥니다. `+
+  `<b>팔로워 총합 47 → 81</b>, 그중 <b>X가 60</b>으로 74%를 차지하게 됐어요.`;
 
 document.getElementById('foot').innerHTML =
-  '수집 2026-07-28 KST · 직전 회차 7/23 대비 · 모든 채널 <b>게시 이후 누적</b>(게시물 표 합계) 기준<br>'+
+  '수집 2026-07-30 KST · 직전 회차 7/28 대비 · 모든 채널 <b>게시 이후 누적</b>(게시물 표 합계) 기준<br>'+
   '조회 정의 — <b>YouTube Shorts·TikTok·IG 릴스·FB는 재생 기반</b>(리플레이 포함, 상호 비교 가능) · <b>X·Threads는 노출 기반</b>이라 더 느슨하니 같은 잣대로 보지 마세요<br>'+
-  '⚠️ 정의 보정 2건 — <b>X 반응</b>에 리포스트 포함(좋아요만 세면 18) · <b>YouTube 반응</b>은 직전 회차 수집 누락분 보정(실제 급증 아님)<br>'+
-  'GA 유입 = utm_medium=social만 · <b>초기 테스트성 유입 혼재로 참고용</b> · 앱 설치 = 최초 다운로드(iOS) + 새 사용자(Android) · 성별은 스토어 미제공';
+  '정의 변경 없음 — <b>X 반응(+46)은 좋아요+리포스트+답글</b> 기준 그대로이고, 경품 트윗 리포스트가 27→73으로 <b>실제로 늘어난</b> 결과입니다<br>'+
+  'GA 유입 = utm_medium=social만 · <b>초기 테스트성 유입 혼재로 참고용</b> · 앱 설치 = 최초 다운로드(iOS) + 새 사용자(Android) · <b>고정 누적이 아닌 30일 창</b> · 성별은 스토어 미제공';
 
 function drawTiles(){
   document.getElementById('tiles').innerHTML = tiles.map(t=>
@@ -441,11 +441,11 @@ function drawFollowers(){
   document.getElementById('folNote').innerHTML = note;
 }
 const FRESH = [
-  {m:'YouTube · X · Facebook<br><span style="color:var(--muted)">조회/반응/팔로워수</span>', s:'네이티브 직접 브라우징', w:'조회·반응 게시 이후 누적<br><span style="color:var(--muted)">팔로워는 수집 시점 스냅샷</span>', d:'7/28 (실시간)', lag:'없음', lagc:'ok'},
-  {m:'IG · TikTok · Threads<br><span style="color:var(--muted)">조회/반응/팔로워수</span>', s:'조회·반응 Metricool<br><span style="color:var(--muted)">팔로워는 네이티브 직접</span>', w:'조회·반응 게시 이후 누적<br><span style="color:var(--muted)">(목록 노출은 6/28–7/27 창)</span>', d:'7/28', lag:'없음', lagc:'ok'},
-  {m:'랜딩 유입<br><span style="color:var(--muted)">세션</span>', s:'GA4 (haru-3b4da)', w:'6/29 – 7/28', d:'7/27', lag:'당일 부분집계', lagc:'warn'},
-  {m:'iOS 설치<br><span style="color:var(--muted)">최초 다운로드</span>', s:'App Store Connect', w:'6/27 – 7/26 (UTC 기준일)', d:'7/26', lag:'약 2일', lagc:'warn'},
-  {m:'Android 설치<br><span style="color:var(--muted)">새 사용자</span>', s:'Play Console', w:'6/28 – 7/27 선택', d:'<b>7/23</b>', lag:'<b>약 5일</b>', lagc:'bad'},
+  {m:'YouTube · X · Facebook<br><span style="color:var(--muted)">조회/반응/팔로워수</span>', s:'네이티브 직접 브라우징', w:'조회·반응 게시 이후 누적<br><span style="color:var(--muted)">팔로워는 수집 시점 스냅샷</span>', d:'7/30 (실시간)', lag:'없음', lagc:'ok'},
+  {m:'IG · TikTok · Threads<br><span style="color:var(--muted)">조회/반응/팔로워수</span>', s:'조회·반응 Metricool<br><span style="color:var(--muted)">팔로워는 네이티브 직접</span>', w:'조회·반응 게시 이후 누적<br><span style="color:var(--muted)">(목록 노출은 6/30–7/29 창)</span>', d:'7/30', lag:'없음', lagc:'ok'},
+  {m:'랜딩 유입<br><span style="color:var(--muted)">세션</span>', s:'GA4 (haru-3b4da)', w:'6/30 – 7/29', d:'7/29', lag:'당일 부분집계', lagc:'warn'},
+  {m:'iOS 설치<br><span style="color:var(--muted)">최초 다운로드</span>', s:'App Store Connect', w:'6/29 – 7/28 (UTC 기준일)', d:'7/28', lag:'약 2일', lagc:'warn'},
+  {m:'Android 설치<br><span style="color:var(--muted)">새 사용자</span>', s:'Play Console', w:'6/30 – 7/29 선택', d:'<b>7/26</b>', lag:'<b>약 4일</b>', lagc:'bad'},
 ];
 function drawFresh(){
   document.querySelector('#freshTable tbody').innerHTML = FRESH.map(f=>{
@@ -519,17 +519,17 @@ function drawPosts(){
       <td class="sep" style="text-align:center">${linkCell}</td></tr>`;}).join('');
 }
 const APP = {
-  totals:{ios:52, aos:21},
+  totals:{ios:55, aos:20},
   country:[
-    {n:"한국",a:17,i:26},{n:"일본",a:3,i:13},{n:"필리핀",a:0,i:9},{n:"미국",a:0,i:2},{n:"인도",a:0,i:2},{n:"기타",a:1,i:0}
+    {n:"한국",a:16,i:25},{n:"일본",a:3,i:16},{n:"필리핀",a:0,i:10},{n:"미국",a:0,i:2},{n:"인도",a:0,i:2},{n:"기타",a:1,i:0}
   ],
   daily:[
-    {d:"6/27",a:0,i:1},{d:"6/28",a:2,i:3},{d:"6/29",a:0,i:3},{d:"6/30",a:2,i:2},{d:"7/1",a:0,i:2},
-    {d:"7/2",a:0,i:1},{d:"7/3",a:0,i:1},{d:"7/4",a:3,i:2},{d:"7/5",a:3,i:1},{d:"7/6",a:1,i:4},
-    {d:"7/7",a:0,i:1},{d:"7/8",a:1,i:1},{d:"7/9",a:1,i:0},{d:"7/10",a:0,i:1},{d:"7/11",a:0,i:4},
-    {d:"7/12",a:0,i:0},{d:"7/13",a:0,i:2},{d:"7/14",a:0,i:1},{d:"7/15",a:0,i:0},{d:"7/16",a:1,i:5},
-    {d:"7/17",a:1,i:2},{d:"7/18",a:1,i:1},{d:"7/19",a:1,i:1},{d:"7/20",a:1,i:3},{d:"7/21",a:1,i:2},
-    {d:"7/22",a:1,i:2},{d:"7/23",a:1,i:3},{d:"7/24",a:0,i:1},{d:"7/25",a:0,i:1},{d:"7/26",a:0,i:1}
+    {d:"6/29",a:0,i:3},{d:"6/30",a:2,i:2},{d:"7/1",a:0,i:2},{d:"7/2",a:0,i:1},{d:"7/3",a:0,i:1},
+    {d:"7/4",a:3,i:2},{d:"7/5",a:3,i:1},{d:"7/6",a:1,i:4},{d:"7/7",a:0,i:1},{d:"7/8",a:1,i:1},
+    {d:"7/9",a:1,i:0},{d:"7/10",a:0,i:1},{d:"7/11",a:0,i:4},{d:"7/12",a:0,i:0},{d:"7/13",a:0,i:2},
+    {d:"7/14",a:0,i:1},{d:"7/15",a:0,i:0},{d:"7/16",a:1,i:5},{d:"7/17",a:1,i:2},{d:"7/18",a:1,i:1},
+    {d:"7/19",a:1,i:1},{d:"7/20",a:1,i:3},{d:"7/21",a:1,i:2},{d:"7/22",a:1,i:2},{d:"7/23",a:1,i:3},
+    {d:"7/24",a:0,i:1},{d:"7/25",a:0,i:1},{d:"7/26",a:1,i:1},{d:"7/27",a:0,i:1},{d:"7/28",a:0,i:6}
   ]
 };
 function drawAppSummary(){
