@@ -3,7 +3,7 @@
 {
   "name": "Haruvoice Reaction Dashboard",
   "schemaVersion": 1,
-  "description": "HaruVoice 반응+팔로워+유입+설치 실측 대시보드 (2026-07-30 기준). 6개 채널 모두 '게시 이후 누적' 단일 기준(게시물 표 합계) — 총 조회 5,884, 총 반응 174, 게시물 40건(신규 없음). 이번 회차 증가분은 사실상 X 단독: 7/26 경품 트윗 promotion_2 리포스트 27→73, 조회 247→747로 X 전체 916→1,493. 팔로워 총 81(YouTube 16 · X 27→60 · IG 4→5 · Threads/TikTok/FB 0). GA4 랜딩 유입 65세션(기록·참고용), 앱 설치 75건(iOS 55+Android 20, 30일 창). 지표별 기준 시점·지연 표 포함.",
+  "description": "HaruVoice 반응+팔로워+유입+설치 실측 대시보드 (2026-07-30 기준). 6개 채널 모두 '게시 이후 누적' 단일 기준(게시물 표 합계) — 총 조회 5,884, 총 반응 174, 게시물 40건(신규 없음). 이번 회차 증가분은 사실상 X 단독: 7/26 경품 트윗 promotion_2 리포스트 27→73, 조회 247→747로 X 전체 916→1,493. 팔로워 총 81(YouTube 16 · X 27→60 · IG 4→5 · Threads/TikTok/FB 0). GA4 랜딩 유입 65세션(기록·참고용), 앱 설치 출시 이후 누적 119건(iOS 66+Android 53). 지표별 기준 시점·지연 표 포함.",
   "mcpTools": [],
   "mcpServerNames": []
 }
@@ -219,8 +219,8 @@
 
   <div class="card">
     <h2>실제 앱 설치 · 다운로드 <span class="tag real">스토어 실측</span></h2>
-    <p class="hint">App Store Connect(iOS) · Google Play Console(Android) 실측 · 최근 약 30일 (iOS 6/29–7/28 · Android 6/30–7/29)</p>
-    <div class="caveat">⏱ <b>두 스토어의 최신 확정일이 다릅니다</b> — iOS는 <b>7/28</b>까지, Android는 <b>7/26</b>까지만 값이 나옵니다. 아래 날짜별 차트에서 <b>7/27~7/28 구간의 Android 0은 실제 0이 아니라 미집계</b>예요. Android 20건도 며칠 뒤 소폭 올라갈 수 있습니다. 총계는 <b>고정 누적이 아니라 30일 창</b>이라 오래된 날짜가 빠지면 줄어들 수 있어요.</div>
+    <p class="hint">App Store Connect(iOS) · Google Play Console(Android) 실측 · <b>출시 이후 누적</b> (iOS 6/21~ · Android 6/1~)</p>
+    <div class="caveat">⏱ <b>두 스토어의 최신 확정일이 다릅니다</b> — iOS는 <b>7/28</b>까지, Android는 <b>7/26</b>까지만 값이 나옵니다. 아래 날짜별 차트에서 <b>7/27~7/28 구간의 Android 0은 실제 0이 아니라 미집계</b>예요. Android 53건도 며칠 뒤 소폭 올라갑니다. Android 6/3~6/4에 몰린 23건은 <b>출시 직후 초기 유입</b>이고, iOS는 6/21부터 집계가 시작돼요.</div>
     <div class="appsum">
       <span class="s"><b id="apTotal"></b>총 설치</span>
       <span class="s" style="color:var(--ios)"><b id="apIos"></b>iOS</span>
@@ -361,7 +361,7 @@ document.getElementById('foot').innerHTML =
   '수집 2026-07-30 KST · 직전 회차 7/28 대비 · 모든 채널 <b>게시 이후 누적</b>(게시물 표 합계) 기준<br>'+
   '조회 정의 — <b>YouTube Shorts·TikTok·IG 릴스·FB는 재생 기반</b>(리플레이 포함, 상호 비교 가능) · <b>X·Threads는 노출 기반</b>이라 더 느슨하니 같은 잣대로 보지 마세요<br>'+
   '정의 변경 없음 — <b>X 반응(+46)은 좋아요+리포스트+답글</b> 기준 그대로이고, 경품 트윗 리포스트가 27→73으로 <b>실제로 늘어난</b> 결과입니다<br>'+
-  'GA 유입 = utm_medium=social만 · <b>초기 테스트성 유입 혼재로 참고용</b> · 앱 설치 = 최초 다운로드(iOS) + 새 사용자(Android) · <b>고정 누적이 아닌 30일 창</b> · 성별은 스토어 미제공';
+  'GA 유입 = utm_medium=social만 · <b>초기 테스트성 유입 혼재로 참고용</b> · 앱 설치 = 최초 다운로드(iOS) + 새 사용자(Android) · <b>출시 이후 누적</b> · 성별은 스토어 미제공';
 
 function drawTiles(){
   document.getElementById('tiles').innerHTML = tiles.map(t=>
@@ -444,8 +444,8 @@ const FRESH = [
   {m:'YouTube · X · Facebook<br><span style="color:var(--muted)">조회/반응/팔로워수</span>', s:'네이티브 직접 브라우징', w:'조회·반응 게시 이후 누적<br><span style="color:var(--muted)">팔로워는 수집 시점 스냅샷</span>', d:'7/30 (실시간)', lag:'없음', lagc:'ok'},
   {m:'IG · TikTok · Threads<br><span style="color:var(--muted)">조회/반응/팔로워수</span>', s:'조회·반응 Metricool<br><span style="color:var(--muted)">팔로워는 네이티브 직접</span>', w:'조회·반응 게시 이후 누적<br><span style="color:var(--muted)">(목록 노출은 6/30–7/29 창)</span>', d:'7/30', lag:'없음', lagc:'ok'},
   {m:'랜딩 유입<br><span style="color:var(--muted)">세션</span>', s:'GA4 (haru-3b4da)', w:'6/30 – 7/29', d:'7/29', lag:'당일 부분집계', lagc:'warn'},
-  {m:'iOS 설치<br><span style="color:var(--muted)">최초 다운로드</span>', s:'App Store Connect', w:'6/29 – 7/28 (UTC 기준일)', d:'7/28', lag:'약 2일', lagc:'warn'},
-  {m:'Android 설치<br><span style="color:var(--muted)">새 사용자</span>', s:'Play Console', w:'6/30 – 7/29 선택', d:'<b>7/26</b>', lag:'<b>약 4일</b>', lagc:'bad'},
+  {m:'iOS 설치<br><span style="color:var(--muted)">최초 다운로드</span>', s:'App Store Connect', w:'6/21 – 7/28 누적 (UTC 기준일)', d:'7/28', lag:'약 2일', lagc:'warn'},
+  {m:'Android 설치<br><span style="color:var(--muted)">새 사용자</span>', s:'Play Console', w:'6/1 – 7/26 누적', d:'<b>7/26</b>', lag:'<b>약 4일</b>', lagc:'bad'},
 ];
 function drawFresh(){
   document.querySelector('#freshTable tbody').innerHTML = FRESH.map(f=>{
@@ -519,17 +519,21 @@ function drawPosts(){
       <td class="sep" style="text-align:center">${linkCell}</td></tr>`;}).join('');
 }
 const APP = {
-  totals:{ios:55, aos:20},
+  totals:{ios:66, aos:53},
   country:[
-    {n:"한국",a:16,i:25},{n:"일본",a:3,i:16},{n:"필리핀",a:0,i:10},{n:"미국",a:0,i:2},{n:"인도",a:0,i:2},{n:"기타",a:1,i:0}
+    {n:"한국",a:49,i:31},{n:"일본",a:3,i:19},{n:"필리핀",a:0,i:11},{n:"미국",a:0,i:3},{n:"인도",a:0,i:2},{n:"기타",a:1,i:0}
   ],
   daily:[
-    {d:"6/29",a:0,i:3},{d:"6/30",a:2,i:2},{d:"7/1",a:0,i:2},{d:"7/2",a:0,i:1},{d:"7/3",a:0,i:1},
-    {d:"7/4",a:3,i:2},{d:"7/5",a:3,i:1},{d:"7/6",a:1,i:4},{d:"7/7",a:0,i:1},{d:"7/8",a:1,i:1},
-    {d:"7/9",a:1,i:0},{d:"7/10",a:0,i:1},{d:"7/11",a:0,i:4},{d:"7/12",a:0,i:0},{d:"7/13",a:0,i:2},
-    {d:"7/14",a:0,i:1},{d:"7/15",a:0,i:0},{d:"7/16",a:1,i:5},{d:"7/17",a:1,i:2},{d:"7/18",a:1,i:1},
-    {d:"7/19",a:1,i:1},{d:"7/20",a:1,i:3},{d:"7/21",a:1,i:2},{d:"7/22",a:1,i:2},{d:"7/23",a:1,i:3},
-    {d:"7/24",a:0,i:1},{d:"7/25",a:0,i:1},{d:"7/26",a:1,i:1},{d:"7/27",a:0,i:1},{d:"7/28",a:0,i:6}
+    {d:"6/1",a:1,i:0},{d:"6/2",a:0,i:0},{d:"6/3",a:13,i:0},{d:"6/4",a:10,i:0},{d:"6/5",a:0,i:0},{d:"6/6",a:0,i:0},
+    {d:"6/7",a:0,i:0},{d:"6/8",a:0,i:0},{d:"6/9",a:0,i:0},{d:"6/10",a:0,i:0},{d:"6/11",a:0,i:0},{d:"6/12",a:0,i:0},
+    {d:"6/13",a:0,i:0},{d:"6/14",a:0,i:0},{d:"6/15",a:0,i:0},{d:"6/16",a:0,i:0},{d:"6/17",a:0,i:0},{d:"6/18",a:0,i:0},
+    {d:"6/19",a:0,i:0},{d:"6/20",a:0,i:0},{d:"6/21",a:0,i:1},{d:"6/22",a:0,i:1},{d:"6/23",a:1,i:0},{d:"6/24",a:2,i:3},
+    {d:"6/25",a:0,i:1},{d:"6/26",a:2,i:1},{d:"6/27",a:2,i:1},{d:"6/28",a:2,i:3},{d:"6/29",a:0,i:3},{d:"6/30",a:2,i:2},
+    {d:"7/1",a:0,i:2},{d:"7/2",a:0,i:1},{d:"7/3",a:0,i:1},{d:"7/4",a:3,i:2},{d:"7/5",a:3,i:1},{d:"7/6",a:1,i:4},
+    {d:"7/7",a:0,i:1},{d:"7/8",a:1,i:1},{d:"7/9",a:1,i:0},{d:"7/10",a:0,i:1},{d:"7/11",a:0,i:4},{d:"7/12",a:0,i:0},
+    {d:"7/13",a:0,i:2},{d:"7/14",a:0,i:1},{d:"7/15",a:0,i:0},{d:"7/16",a:1,i:5},{d:"7/17",a:1,i:2},{d:"7/18",a:1,i:1},
+    {d:"7/19",a:1,i:1},{d:"7/20",a:1,i:3},{d:"7/21",a:1,i:2},{d:"7/22",a:1,i:2},{d:"7/23",a:1,i:3},{d:"7/24",a:0,i:1},
+    {d:"7/25",a:0,i:1},{d:"7/26",a:1,i:1},{d:"7/27",a:0,i:1},{d:"7/28",a:0,i:6}
   ]
 };
 function drawAppSummary(){
